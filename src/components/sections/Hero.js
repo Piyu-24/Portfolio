@@ -5,24 +5,37 @@ import {
   Button,
   Avatar,
   useTheme,
+  Container,
+  Grid,
+  IconButton,
+  Fade,
+  Slide,
+  useMediaQuery,
 } from '@mui/material';
 import {
   Download,
   ContactMail,
   GitHub,
   LinkedIn,
+  Email,
+  Phone,
+  LocationOn,
+  KeyboardArrowDown,
 } from '@mui/icons-material';
 
 const Hero = () => {
   const theme = useTheme();
   const heroRef = useRef(null);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [isVisible, setIsVisible] = useState(false);
+  const [textAnimationDelay, setTextAnimationDelay] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          setTimeout(() => setTextAnimationDelay(true), 300);
         }
       },
       { threshold: 0.1 }
@@ -34,14 +47,32 @@ const Hero = () => {
   }, []);
 
   const handleDownloadResume = () => {
-    // Add resume download logic here
-    console.log('Download resume clicked');
+    // Direct download link from Google Drive
+    // Replace FILE_ID with your actual Google Drive file ID
+    const driveFileId = '1M2lVjet-nmuTKdlJyc3myEcIThBA_8d6'; // Your Google Drive file ID
+    const downloadUrl = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
+    
+    // Create download link
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = 'Piyumi_Upeksha_CV.pdf';
+    link.target = '_blank'; // Open in new tab as fallback
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleContactClick = () => {
     const element = document.querySelector('#contact');
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleScrollDown = () => {
+    const element = document.querySelector('#about');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -50,293 +81,370 @@ const Hero = () => {
       ref={heroRef}
       id="home"
       sx={{
+        minHeight: '100vh',
         width: '100%',
-        py: { xs: 4, sm: 5, md: 6, lg: 7 },
-        px: { xs: 1, sm: 2 },
-        mb: { xs: 2, sm: 3, md: 4 },
+        position: 'relative',
         background: theme.palette.mode === 'dark'
-          ? 'linear-gradient(135deg, #1f2937 0%, #374151 25%, #4b5563 50%, #6b7280 75%, #9ca3af 100%)'
-          : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 75%, #64748b 100%)',
-        color: theme.palette.mode === 'dark' ? 'white' : '#1f2937',
-        borderRadius: { xs: 1, sm: 2 },
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-        transition: 'opacity 1s ease-out, transform 1s ease-out',
-        boxShadow: theme.palette.mode === 'dark'
-          ? '0 20px 60px rgba(31, 41, 55, 0.4)'
-          : '0 20px 60px rgba(0, 0, 0, 0.1)',
+          ? 'linear-gradient(135deg, #0F0F0F 0%, #1A1A1A 25%, #252525 50%, #19305C 75%, #03122F 100%)'
+          : 'linear-gradient(135deg, #FEFEFE 0%, #F9F7F8 25%, #F3DADF 50%, #AE7DAC 75%, #413B61 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: theme.palette.mode === 'dark'
+            ? 'radial-gradient(circle at 20% 80%, rgba(174, 125, 172, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(241, 145, 109, 0.1) 0%, transparent 50%)'
+            : 'radial-gradient(circle at 20% 80%, rgba(3, 18, 47, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(174, 125, 172, 0.08) 0%, transparent 50%)',
+          zIndex: 1,
+        },
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start',
-          width: { xs: '95%', md: '90%', lg: '85%' },
-          maxWidth: '1400px',
-          minHeight: { md: '500px' },
-          gap: { xs: 4, md: 8 },
+      <Container 
+        maxWidth="xl" 
+        sx={{ 
+          position: 'relative', 
+          zIndex: 2,
+          pt: { xs: 8, md: 4 },
         }}
       >
-        {/* Left Side: Text Content */}
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: { xs: 'center', md: 'flex-start' },
-            justifyContent: 'center',
-            mt: { xs: 2, md: 0 },
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateX(0)' : 'translateX(-50px)',
-            transition: 'opacity 1s ease-out, transform 1s ease-out',
-          }}
-        >
-          <Typography
-            variant="h6"
-            sx={{
-              color: theme.palette.mode === 'dark' 
-                ? '#d4b896' 
-                : '#1f2937',
-              fontWeight: 500,
-              mb: 2,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              textShadow: '1px 1px 3px rgba(0, 0, 0, 0.1)',
-              textAlign: { xs: 'center', md: 'left' },
-            }}
-          >
-            Welcome to my portfolio
-          </Typography>
-          
-          <Typography
-            variant="h2"
-            sx={{
-              mb: { xs: 2, md: 3 },
-              fontWeight: '700',
-              fontSize: { xs: '2rem', sm: '2.4rem', md: '2.8rem', lg: '3.2rem' },
-              background: theme.palette.mode === 'dark'
-                ? 'linear-gradient(135deg, #d4b896, #c8a882)'
-                : 'linear-gradient(135deg, #1f2937, #374151)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '2px 2px 8px rgba(0, 0, 0, 0.3)',
-              textAlign: { xs: 'center', md: 'left' },
-              lineHeight: { xs: 1.1, md: 1.2 },
-            }}
-          >
-            IT & Management
-            <br />
-            Professional
-          </Typography>
-          
-          <Typography
-            variant="body1"
-            sx={{
-              mb: { xs: 3, md: 4 },
-              fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.25rem' },
-              lineHeight: '1.7',
-              color: theme.palette.mode === 'dark'
-                ? 'rgba(229, 231, 235, 0.95)'
-                : 'rgba(31, 41, 55, 0.8)',
-              textShadow: '1px 1px 3px rgba(0, 0, 0, 0.1)',
-              textAlign: { xs: 'center', md: 'left' },
-              fontWeight: '400',
-              maxWidth: '650px',
-            }}
-          >
-            Combining technical expertise with strategic thinking to drive
-            innovation and deliver exceptional results in today's digital landscape.
-          </Typography>
-          
-          <Typography
-            variant="body1"
-            sx={{
-              mb: 6,
-              color: theme.palette.mode === 'dark'
-                ? 'rgba(229, 231, 235, 0.8)'
-                : 'rgba(31, 41, 55, 0.7)',
-              fontSize: '1.1rem',
-              lineHeight: 1.7,
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.05)',
-              textAlign: { xs: 'center', md: 'left' },
-              maxWidth: '600px',
-            }}
-          >
-            BSc Honors graduate from University of Moratuwa with expertise in
-            software development, project management, and digital solutions.
-            Passionate about creating technology that makes a difference.
-          </Typography>
+        <Grid container spacing={4} alignItems="center" sx={{ minHeight: '80vh' }}>
+          {/* Left Side: Content */}
+          <Grid size={{ xs: 12, md: 7 }}>
+            <Fade in={isVisible} timeout={800}>
+              <Box>
+                <Slide direction="right" in={textAnimationDelay} timeout={800}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: theme.palette.accent.main,
+                      fontWeight: 600,
+                      mb: 2,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                      fontSize: { xs: '0.85rem', sm: '0.95rem' }, // Decreased font size slightly
+                      mt: 1.5, // Added top margin for more spacing
+                    }}
+                  >
+                    Welcome to my portfolio
+                  </Typography>
+                </Slide>
+                
+                <Slide direction="right" in={textAnimationDelay} timeout={1000}>
+                  <Typography
+                    variant="h1"
+                    sx={{
+                      mb: 3,
+                      fontWeight: 700,
+                      fontSize: { xs: '2.3rem', sm: '3.3rem', md: '3.8rem', lg: '4.2rem' }, // Decreased font size slightly
+                      lineHeight: { xs: 1.1, md: 1.2 },
+                      background: theme.palette.mode === 'dark'
+                        ? 'linear-gradient(135deg, #F3DADF 0%, #AE7DAC 50%, #F1916D 100%)'
+                        : 'linear-gradient(135deg, #03122F 0%, #19305C 50%, #413B61 100%)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: 'none',
+                    }}
+                  >
+                    Piyumi Upeksha
+                  </Typography>
+                </Slide>
 
-          {/* Action Buttons */}
-          <Box sx={{ 
-            display: 'flex', 
-            gap: { xs: 2, md: 3 }, 
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: { xs: 'stretch', sm: 'center' },
-            mb: 4,
-          }}>
-            <Button
-              variant="contained"
-              size="large"
-              startIcon={<Download />}
-              onClick={handleDownloadResume}
+                <Slide direction="right" in={textAnimationDelay} timeout={1200}>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      mb: 3,
+                      fontWeight: 600,
+                      color: theme.palette.tertiary.main,
+                      fontSize: { xs: '1.4rem', sm: '1.8rem', md: '2rem' },
+                    }}
+                  >
+                    Software Engineer Intern
+                  </Typography>
+                </Slide>
+
+                <Slide direction="right" in={textAnimationDelay} timeout={1400}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      mb: 4,
+                      fontWeight: 500,
+                      color: theme.palette.text.secondary,
+                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                    }}
+                  >
+                    B.Sc. Honors in Information Technology & Management
+                    <br />
+                    University of Moratuwa
+                  </Typography>
+                </Slide>
+                
+                <Slide direction="right" in={textAnimationDelay} timeout={1600}>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      mb: 5,
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      lineHeight: 1.7,
+                      color: theme.palette.text.muted,
+                      maxWidth: '600px',
+                    }}
+                  >
+                    Ambitious and self-motivated undergraduate passionate about leveraging 
+                    technology to solve real-world problems. Proven ability to collaborate 
+                    effectively in high-pressure environments with strong adaptability.
+                  </Typography>
+                </Slide>
+
+                {/* Action Buttons */}
+                <Slide direction="up" in={textAnimationDelay} timeout={1800}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    gap: 3, 
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    mb: 5,
+                  }}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      startIcon={<Download />}
+                      onClick={handleDownloadResume}
+                      sx={{
+                        py: 1.8,
+                        px: 4,
+                        fontSize: '1.1rem',
+                        borderRadius: '15px',
+                      }}
+                    >
+                      Download Resume
+                    </Button>
+                    
+                    <Button
+                      variant="outlined"
+                      size="large"
+                      startIcon={<ContactMail />}
+                      onClick={handleContactClick}
+                      sx={{
+                        py: 1.8,
+                        px: 4,
+                        fontSize: '1.1rem',
+                        borderRadius: '15px',
+                      }}
+                    >
+                      Get in Touch
+                    </Button>
+                  </Box>
+                </Slide>
+
+                {/* Contact Info */}
+                <Slide direction="up" in={textAnimationDelay} timeout={2000}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    gap: { xs: 2, sm: 4 },
+                    mb: 5,
+                  }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Email sx={{ color: theme.palette.accent.main, fontSize: '1.2rem' }} />
+                      <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
+                         upekshabbc@gmail.com
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Phone sx={{ color: theme.palette.accent.main, fontSize: '1.2rem' }} />
+                      <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
+                         +94 704520551
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <LocationOn sx={{ color: theme.palette.accent.main, fontSize: '1.2rem' }} />
+                      <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
+                        Moratuwa, Colombo
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Slide>
+
+                {/* Social Links */}
+                <Slide direction="up" in={textAnimationDelay} timeout={2200}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    gap: 2,
+                  }}>
+                    <IconButton
+                      href="https://github.com/Piyu-24"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: theme.palette.text.secondary,
+                        backgroundColor: theme.palette.mode === 'dark' 
+                          ? 'rgba(243, 218, 223, 0.1)' 
+                          : 'rgba(3, 18, 47, 0.1)',
+                        '&:hover': {
+                          color: theme.palette.accent.main,
+                          backgroundColor: theme.palette.mode === 'dark' 
+                            ? 'rgba(243, 218, 223, 0.2)' 
+                            : 'rgba(3, 18, 47, 0.2)',
+                          transform: 'translateY(-2px)',
+                        },
+                        transition: 'all 0.3s ease',
+                      }}
+                    >
+                      <GitHub />
+                    </IconButton>
+                    <IconButton
+                      href="https://linkedin.com/in/piyumi-pathinayake"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: theme.palette.text.secondary,
+                        backgroundColor: theme.palette.mode === 'dark' 
+                          ? 'rgba(243, 218, 223, 0.1)' 
+                          : 'rgba(3, 18, 47, 0.1)',
+                        '&:hover': {
+                          color: theme.palette.accent.main,
+                          backgroundColor: theme.palette.mode === 'dark' 
+                            ? 'rgba(243, 218, 223, 0.2)' 
+                            : 'rgba(3, 18, 47, 0.2)',
+                          transform: 'translateY(-2px)',
+                        },
+                        transition: 'all 0.3s ease',
+                      }}
+                    >
+                      <LinkedIn />
+                    </IconButton>
+                  </Box>
+                </Slide>
+              </Box>
+            </Fade>
+          </Grid>
+
+          {/* Right Side: Profile Image */}
+          <Grid size={{ xs: 12, md: 5 }}>
+            <Fade in={isVisible} timeout={1000}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'relative',
+                  mt: { xs: 4, md: 0 },
+                }}
+              >
+                <Box
+                  sx={{
+                    position: 'relative',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: '-20px',
+                      left: '-20px',
+                      right: '-20px',
+                      bottom: '-20px',
+                      background: theme.palette.mode === 'dark'
+                        ? 'linear-gradient(135deg, rgba(174, 125, 172, 0.2) 0%, rgba(241, 145, 109, 0.2) 100%)'
+                        : 'linear-gradient(135deg, rgba(3, 18, 47, 0.1) 0%, rgba(174, 125, 172, 0.15) 100%)',
+                      borderRadius: '50%',
+                      zIndex: -1,
+                      animation: 'pulse 3s ease-in-out infinite',
+                    },
+                    '@keyframes pulse': {
+                      '0%, 100%': {
+                        transform: 'scale(1)',
+                        opacity: 0.7,
+                      },
+                      '50%': {
+                        transform: 'scale(1.05)',
+                        opacity: 0.9,
+                      },
+                    },
+                  }}
+                >
+                  <Avatar
+                    alt="Piyumi Upeksha"
+                    src="/profile-photo.jpg"
+                    sx={{
+                      width: { xs: 280, sm: 350, md: 400 },
+                      height: { xs: 280, sm: 350, md: 400 },
+                      border: `4px solid ${theme.palette.accent.main}`,
+                      background: theme.palette.mode === 'dark'
+                        ? 'linear-gradient(135deg, #252525 0%, #19305C 100%)'
+                        : 'linear-gradient(135deg, #F3DADF 0%, #AE7DAC 100%)',
+                      boxShadow: theme.palette.mode === 'dark'
+                        ? '0 25px 50px rgba(0, 0, 0, 0.3)'
+                        : '0 25px 50px rgba(3, 18, 47, 0.15)',
+                      transition: 'all 0.4s ease',
+                      fontSize: { xs: '1.2rem', md: '1.5rem' },
+                      fontWeight: 600,
+                      color: theme.palette.text.primary,
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                        boxShadow: theme.palette.mode === 'dark'
+                          ? '0 30px 60px rgba(0, 0, 0, 0.4)'
+                          : '0 30px 60px rgba(3, 18, 47, 0.2)',
+                      },
+                    }}
+                  >
+                    PU
+                  </Avatar>
+                </Box>
+              </Box>
+            </Fade>
+          </Grid>
+        </Grid>
+
+        {/* Scroll Down Indicator */}
+        <Fade in={textAnimationDelay} timeout={2500}>
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 30,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              textAlign: 'center',
+              cursor: 'pointer',
+            }}
+            onClick={handleScrollDown}
+          >
+            <Typography
+              variant="body2"
               sx={{
-                background: theme.palette.mode === 'dark'
-                  ? 'linear-gradient(135deg, #c8a882, #d4b896)'
-                  : 'linear-gradient(135deg, #1f2937, #374151)',
-                color: 'white',
-                px: 4,
-                py: 1.5,
-                fontSize: '1.1rem',
-                fontWeight: 600,
-                borderRadius: '12px',
-                boxShadow: '0 8px 25px rgba(0, 0, 0, 0.2)',
-                '&:hover': {
-                  background: theme.palette.mode === 'dark'
-                    ? 'linear-gradient(135deg, #d4b896, #e2c4a0)'
-                    : 'linear-gradient(135deg, #374151, #4b5563)',
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0 12px 35px rgba(0, 0, 0, 0.3)',
-                },
-                transition: 'all 0.3s ease',
+                color: theme.palette.text.secondary,
+                mb: 1,
+                fontSize: '0.9rem',
               }}
             >
-              Download Resume
-            </Button>
-            
-            <Button
-              variant="outlined"
-              size="large"
-              startIcon={<ContactMail />}
-              onClick={handleContactClick}
+              Scroll Down
+            </Typography>
+            <IconButton
               sx={{
-                borderColor: theme.palette.mode === 'dark' ? '#d4b896' : '#1f2937',
-                color: theme.palette.mode === 'dark' ? '#d4b896' : '#1f2937',
-                px: 4,
-                py: 1.5,
-                fontSize: '1.1rem',
-                fontWeight: 600,
-                borderRadius: '12px',
-                borderWidth: '2px',
-                '&:hover': {
-                  backgroundColor: theme.palette.mode === 'dark' ? 'rgba(212, 184, 150, 0.1)' : 'rgba(31, 41, 55, 0.1)',
-                  borderColor: theme.palette.mode === 'dark' ? '#e2c4a0' : '#374151',
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+                color: theme.palette.accent.main,
+                animation: 'bounce 2s infinite',
+                '@keyframes bounce': {
+                  '0%, 20%, 50%, 80%, 100%': {
+                    transform: 'translateY(0)',
+                  },
+                  '40%': {
+                    transform: 'translateY(-10px)',
+                  },
+                  '60%': {
+                    transform: 'translateY(-5px)',
+                  },
                 },
-                transition: 'all 0.3s ease',
               }}
             >
-              Get in Touch
-            </Button>
+              <KeyboardArrowDown />
+            </IconButton>
           </Box>
-
-          {/* Social Links */}
-          <Box sx={{ 
-            display: 'flex', 
-            gap: 2, 
-            justifyContent: { xs: 'center', md: 'flex-start' },
-            flexWrap: 'wrap',
-          }}>
-            <Button
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              startIcon={<GitHub />}
-              sx={{
-                color: theme.palette.mode === 'dark'
-                  ? 'rgba(229, 231, 235, 0.7)'
-                  : 'rgba(31, 41, 55, 0.7)',
-                fontSize: '1rem',
-                fontWeight: 500,
-                '&:hover': {
-                  color: theme.palette.mode === 'dark' ? '#d4b896' : '#1f2937',
-                  transform: 'translateY(-2px)',
-                  backgroundColor: 'transparent',
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              GitHub
-            </Button>
-            <Button
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              startIcon={<LinkedIn />}
-              sx={{
-                color: theme.palette.mode === 'dark'
-                  ? 'rgba(229, 231, 235, 0.7)'
-                  : 'rgba(31, 41, 55, 0.7)',
-                fontSize: '1rem',
-                fontWeight: 500,
-                '&:hover': {
-                  color: theme.palette.mode === 'dark' ? '#d4b896' : '#1f2937',
-                  transform: 'translateY(-2px)',
-                  backgroundColor: 'transparent',
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              LinkedIn
-            </Button>
-          </Box>
-        </Box>
-
-        {/* Right Side: Profile Image */}
-        <Box
-          sx={{
-            flex: 1,
-            display: 'flex',
-            alignItems: { xs: 'center', md: 'flex-start' },
-            justifyContent: 'center',
-            mt: { xs: 0, md: '32px' },
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateX(0)' : 'translateX(50px)',
-            transition: 'opacity 1s ease-out, transform 1s ease-out',
-          }}
-        >
-          <Avatar
-            src="/path-to-your-photo.jpg"
-            alt="Profile Photo"
-            sx={{
-              width: { xs: 250, sm: 300, md: 350, lg: 400 },
-              height: { xs: 250, sm: 300, md: 350, lg: 400 },
-              border: theme.palette.mode === 'dark'
-                ? `4px solid rgba(212, 184, 150, 0.6)`
-                : `4px solid rgba(31, 41, 55, 0.3)`,
-              background: theme.palette.mode === 'dark'
-                ? 'linear-gradient(135deg, #4b5563, #6b7280)'
-                : 'linear-gradient(135deg, #cbd5e1, #94a3b8)',
-              boxShadow: theme.palette.mode === 'dark'
-                ? '0 25px 60px rgba(75, 85, 99, 0.5)'
-                : '0 25px 60px rgba(0, 0, 0, 0.15)',
-              transition: 'all 0.4s ease',
-              fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
-              fontWeight: 600,
-              color: theme.palette.mode === 'dark' ? '#d4b896' : '#1f2937',
-              '&:hover': {
-                transform: 'scale(1.05)',
-                boxShadow: theme.palette.mode === 'dark'
-                  ? '0 30px 80px rgba(107, 114, 128, 0.6)'
-                  : '0 30px 80px rgba(0, 0, 0, 0.25)',
-                borderColor: theme.palette.mode === 'dark'
-                  ? 'rgba(212, 184, 150, 0.8)'
-                  : 'rgba(31, 41, 55, 0.5)',
-              },
-            }}
-          >
-            Your Photo
-          </Avatar>
-        </Box>
-      </Box>
+        </Fade>
+      </Container>
     </Box>
   );
 };

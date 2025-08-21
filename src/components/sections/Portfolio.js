@@ -6,7 +6,7 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
+  CardActions,
   Button,
   Chip,
   IconButton,
@@ -15,7 +15,8 @@ import {
   DialogTitle,
   useTheme,
   Fade,
-  Grow,
+  Slide,
+  useMediaQuery,
 } from '@mui/material';
 import {
   GitHub,
@@ -23,14 +24,18 @@ import {
   Close,
   Code,
   Web,
-  Smartphone,
+  Storage,
+  Group,
+  Star,
+  TrendingUp,
 } from '@mui/icons-material';
 
 const Portfolio = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [selectedProject, setSelectedProject] = useState(null);
   const portfolioRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Changed to true initially
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,74 +44,111 @@ const Portfolio = () => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { 
+        threshold: 0.1,
+        rootMargin: '50px 0px'
+      }
     );
 
-    if (portfolioRef.current) observer.observe(portfolioRef.current);
+    if (portfolioRef.current) {
+      observer.observe(portfolioRef.current);
+    }
 
-    return () => observer.disconnect();
+    // Fallback to show content after a delay
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   const projects = [
     {
       id: 1,
       title: 'HarvestSoftware',
-      category: 'Web Application',
-      description: 'A comprehensive agricultural management system designed to help farmers optimize their crop production and resource management.',
-      fullDescription: 'HarvestSoftware is a complete agricultural management platform that provides farmers with tools to track crop cycles, manage resources, monitor weather conditions, and optimize yields. The system includes features for inventory management, financial tracking, and data analytics to help farmers make informed decisions.',
-      image: '/placeholder-project1.jpg',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Material-UI', 'Chart.js'],
-      features: [
-        'Crop cycle tracking and management',
-        'Resource optimization algorithms',
-        'Weather integration and forecasting',
-        'Financial tracking and reporting',
-        'Inventory management system',
-        'Data analytics dashboard'
+      subtitle: 'Farm-to-Market Trading Platform',
+      description: 'A comprehensive web-based platform designed to modernize the agricultural supply chain by directly connecting farmers, merchants, and transporters.',
+      fullDescription: 'HarvestSoftware eliminates intermediaries, enabling transparent, fair, and efficient trading of agricultural produce. The system features real-time bidding, order management, and financial summaries with a modern, responsive UI/UX.',
+      technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Material UI', 'Auth0', 'REST APIs'],
+      category: 'Full Stack',
+      status: 'Completed',
+      teamProject: true,
+      myRole: [
+        'Designed and implemented merchant dashboard with real-time bid summaries',
+        'Developed live bidding system and advanced search/filter features',
+        'Created the platform\'s public homepage',
+        'Delivered modern, responsive UI/UX with React and Material UI'
       ],
-      githubUrl: 'https://github.com/yourusername/harvestsoftware',
-      liveUrl: 'https://harvestsoftware-demo.com',
+      githubUrl: 'https://github.com/Piyu-24',
+      liveUrl: null,
       icon: <Web />,
+      color: theme.palette.primary?.main || '#03122F',
     },
     {
       id: 2,
-      title: 'Vehicle Rental Backend',
-      category: 'Backend System',
-      description: 'A robust backend API system for vehicle rental management with advanced booking algorithms and payment integration.',
-      fullDescription: 'This comprehensive backend system powers vehicle rental operations with features including real-time vehicle availability, dynamic pricing, booking management, user authentication, and payment processing. Built with scalability and security in mind.',
-      image: '/placeholder-project2.jpg',
-      technologies: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'Stripe API', 'Docker'],
-      features: [
-        'RESTful API architecture',
-        'Real-time vehicle availability',
-        'Dynamic pricing algorithms',
-        'Secure payment processing',
-        'User authentication and authorization',
-        'Booking management system'
+      title: 'Machinery Sales & Inventory System',
+      subtitle: 'Enterprise Management Platform',
+      description: 'A web-based platform developed for Pasan Enterprises, featuring inventory management, product listings, and customer interface for machinery sales.',
+      fullDescription: 'Complete business solution with inventory management, product catalogs, customer interfaces for browsing and purchasing machinery, plus comprehensive admin tools for managing orders, stock, and customer inquiries.',
+      technologies: ['React', 'Node.js', 'Express.js', 'MongoDB'],
+      category: 'Full Stack',
+      status: 'Ongoing',
+      teamProject: true,
+      myRole: [
+        'Full-stack development with React and Node.js',
+        'Database design and implementation',
+        'API development and integration',
+        'UI/UX design and implementation'
       ],
-      githubUrl: 'https://github.com/yourusername/vehicle-rental-backend',
-      liveUrl: 'https://rental-api-docs.com',
-      icon: <Code />,
+      githubUrl: 'https://github.com/Piyu-24',
+      liveUrl: null,
+      icon: <Storage />,
+      color: theme.palette.accent?.main || '#AE7DAC',
     },
     {
       id: 3,
-      title: 'NovaNex',
-      category: 'Mobile Application',
-      description: 'An innovative mobile application providing next-generation solutions for modern business challenges.',
-      fullDescription: 'NovaNex is a cutting-edge mobile application that combines AI-powered insights with intuitive user experience design. The app provides businesses with tools for data analysis, process automation, and strategic decision making.',
-      image: '/placeholder-project3.jpg',
-      technologies: ['React Native', 'TypeScript', 'Firebase', 'Redux', 'TensorFlow.js', 'AWS'],
-      features: [
-        'AI-powered business insights',
-        'Cross-platform mobile support',
-        'Real-time data synchronization',
-        'Advanced analytics dashboard',
-        'Process automation tools',
-        'Cloud-based data storage'
+      title: 'Vehicle Rental Web',
+      subtitle: 'Laravel-Based Transportation App',
+      description: 'A transportation domain backend using Laravel in a two-tier architecture with RESTful API and SPA for vehicle rental services.',
+      fullDescription: 'Complete vehicle rental system with user authentication, secure route access, vehicle listing and booking interface. Built with Laravel backend and modern frontend technologies.',
+      technologies: ['Laravel', 'MySQL', 'RESTful API', 'XAMPP', 'Postman'],
+      category: 'Backend',
+      status: 'Completed',
+      teamProject: false,
+      myRole: [
+        'Full backend development with Laravel',
+        'Route protection logic implementation',
+        'User authentication system',
+        'UI design for vehicle listing and booking interface'
       ],
-      githubUrl: 'https://github.com/yourusername/novanex',
-      liveUrl: 'https://novanex-app.com',
-      icon: <Smartphone />,
+      githubUrl: 'https://github.com/Piyu-24',
+      liveUrl: null,
+      icon: <Code />,
+      color: theme.palette.tertiary?.main || '#F1916D',
+    },
+    {
+      id: 4,
+      title: 'NovaNex',
+      subtitle: 'Automated Weighing & Packing System',
+      description: 'Microcontroller-based hardware project for automated grain dispensing, weighing, sealing, and inventory management in retail environments.',
+      fullDescription: 'Smart, standalone retail management unit integrating multiple embedded systems and control mechanisms. Features automated processes for grain handling with temperature monitoring and GSM connectivity.',
+      technologies: ['Arduino Mega', 'Load Cell', 'Servo Motor', 'Stepper Motors', 'Temperature Sensor', 'GSM Module'],
+      category: 'Hardware/IoT',
+      status: 'Completed',
+      teamProject: true,
+      myRole: [
+        'System integration and architecture',
+        'Load cell calibration and setup',
+        'LCD/keypad user interface design',
+        'Temperature sensor logic & relay control'
+      ],
+      githubUrl: 'https://github.com/Piyu-24',
+      liveUrl: null,
+      icon: <TrendingUp />,
+      color: theme.palette.secondary?.main || '#F3DADF',
     },
   ];
 
@@ -125,75 +167,78 @@ const Portfolio = () => {
       sx={{
         py: { xs: 8, md: 12 },
         background: theme.palette.mode === 'dark'
-          ? 'linear-gradient(135deg, #1f2937 0%, #374151 25%, #4b5563 50%, #6b7280 75%, #9ca3af 100%)'
-          : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 75%, #64748b 100%)',
-        color: theme.palette.mode === 'dark' ? 'white' : '#1f2937',
-        borderRadius: { xs: 1, sm: 2 },
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-        transition: 'opacity 1s ease-out, transform 1s ease-out',
-        boxShadow: theme.palette.mode === 'dark'
-          ? '0 20px 60px rgba(31, 41, 55, 0.4)'
-          : '0 20px 60px rgba(0, 0, 0, 0.1)',
+          ? 'linear-gradient(180deg, #0F0F0F 0%, #1A1A1A 50%, #252525 100%)'
+          : 'linear-gradient(180deg, #FEFEFE 0%, #F9F7F8 50%, #F3DADF 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: theme.palette.mode === 'dark'
+            ? 'radial-gradient(circle at 20% 30%, rgba(174, 125, 172, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(241, 145, 109, 0.06) 0%, transparent 50%)'
+            : 'radial-gradient(circle at 20% 30%, rgba(3, 18, 47, 0.04) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(174, 125, 172, 0.06) 0%, transparent 50%)',
+          zIndex: 1,
+        },
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-        <Box
-          sx={{
-            textAlign: 'center',
-            mb: 8,
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(-30px)',
-            transition: 'opacity 1s ease-out, transform 1s ease-out',
-          }}
-        >
-          <Typography
-            variant="h2"
-            sx={{
-              mb: { xs: 2, md: 3 },
-              fontWeight: '700',
-              fontSize: { xs: '2rem', sm: '2.4rem', md: '2.8rem', lg: '3.2rem' },
-              background: theme.palette.mode === 'dark'
-                ? 'linear-gradient(135deg, #d4b896, #c8a882)'
-                : 'linear-gradient(135deg, #1f2937, #374151)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '2px 2px 8px rgba(0, 0, 0, 0.3)',
-            }}
-          >
-            Featured Projects
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              mb: { xs: 3, md: 4 },
-              fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.25rem' },
-              lineHeight: '1.7',
-              color: theme.palette.mode === 'dark'
-                ? 'rgba(229, 231, 235, 0.95)'
-                : 'rgba(31, 41, 55, 0.8)',
-              textShadow: '1px 1px 3px rgba(0, 0, 0, 0.1)',
-              fontWeight: '400',
-              maxWidth: '700px',
-              mx: 'auto',
-            }}
-          >
-            Explore my latest projects showcasing expertise in full-stack development,
-            system architecture, and innovative problem-solving approaches.
-          </Typography>
-        </Box>
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 2 }}>
+        {/* Section Header */}
+        <Fade in={isVisible} timeout={800}>
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Typography
+              variant="h6"
+              sx={{
+                color: theme.palette.accent?.main || '#AE7DAC',
+                fontWeight: 600,
+                mb: 2,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+              }}
+            >
+              My Work
+            </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 4,
+                fontWeight: 700,
+                background: theme.palette.mode === 'dark'
+                  ? 'linear-gradient(135deg, #F3DADF 0%, #AE7DAC 100%)'
+                  : 'linear-gradient(135deg, #03122F 0%, #19305C 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Featured Projects
+            </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                color: theme.palette.text.secondary,
+                maxWidth: '800px',
+                mx: 'auto',
+                lineHeight: 1.6,
+              }}
+            >
+              A showcase of my technical projects spanning full-stack development, 
+              IoT systems, and innovative solutions
+            </Typography>
+          </Box>
+        </Fade>
 
         {/* Projects Grid */}
         <Grid container spacing={4}>
           {projects.map((project, index) => (
-            <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={project.id}>
-              <Box
-                sx={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
-                  transition: `opacity 1s ease-out ${index * 0.2}s, transform 1s ease-out ${index * 0.2}s`,
-                }}
+            <Grid size={{ xs: 12, md: 6 }} key={project.id}>
+              <Slide
+                direction="up"
+                in={isVisible}
+                timeout={1000 + index * 200}
               >
                 <Card
                   sx={{
@@ -201,305 +246,280 @@ const Portfolio = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     cursor: 'pointer',
-                    background: theme.palette.mode === 'dark'
-                      ? 'rgba(255, 255, 255, 0.05)'
-                      : 'rgba(255, 255, 255, 0.9)',
-                    backdropFilter: 'blur(10px)',
-                    border: theme.palette.mode === 'dark'
-                      ? '1px solid rgba(200, 168, 130, 0.3)'
-                      : '1px solid rgba(31, 41, 55, 0.1)',
-                    borderRadius: '20px',
-                    overflow: 'hidden',
-                    transition: 'all 0.4s ease',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     '&:hover': {
-                      transform: 'translateY(-15px) scale(1.02)',
-                      boxShadow: theme.palette.mode === 'dark'
-                        ? '0 25px 60px rgba(75, 85, 99, 0.5)'
-                        : '0 25px 60px rgba(0, 0, 0, 0.15)',
-                      borderColor: theme.palette.mode === 'dark'
-                        ? 'rgba(212, 184, 150, 0.7)'
-                        : 'rgba(31, 41, 55, 0.3)',
+                      transform: 'translateY(-12px) scale(1.02)',
                     },
                   }}
                   onClick={() => handleProjectClick(project)}
                 >
-                  <CardMedia
+                  {/* Project Header */}
+                  <Box
                     sx={{
-                      height: 220,
-                      position: 'relative',
-                      background: theme.palette.mode === 'dark'
-                        ? 'linear-gradient(135deg, #4b5563, #6b7280)'
-                        : 'linear-gradient(135deg, #cbd5e1, #94a3b8)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      '&:hover .project-icon': {
-                        transform: 'scale(1.2) rotate(10deg)',
-                      },
+                      p: 3,
+                      background: `linear-gradient(135deg, ${project.color}15 0%, ${project.color}25 100%)`,
+                      borderBottom: `1px solid ${project.color}30`,
                     }}
                   >
-                    <Box
-                      className="project-icon"
-                      sx={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: '50%',
-                        background: theme.palette.mode === 'dark'
-                          ? 'linear-gradient(135deg, #c8a882, #d4b896)'
-                          : 'linear-gradient(135deg, #1f2937, #374151)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        fontSize: '2rem',
-                        transition: 'all 0.3s ease',
-                        boxShadow: '0 8px 25px rgba(0, 0, 0, 0.2)',
-                      }}
-                    >
-                      {project.icon}
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                      <Box
+                        sx={{
+                          width: 50,
+                          height: 50,
+                          borderRadius: '12px',
+                          background: `linear-gradient(135deg, ${project.color} 0%, ${project.color}80 100%)`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mr: 2,
+                          '& svg': {
+                            color: '#FFFFFF',
+                            fontSize: '1.8rem',
+                          },
+                        }}
+                      >
+                        {project.icon}
+                      </Box>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography
+                          variant="h5"
+                          sx={{
+                            fontWeight: 700,
+                            color: theme.palette.text.primary,
+                            mb: 0.5,
+                          }}
+                        >
+                          {project.title}
+                        </Typography>
+                        <Typography
+                          variant="subtitle1"
+                          sx={{
+                            color: theme.palette.text.secondary,
+                            fontWeight: 500,
+                          }}
+                        >
+                          {project.subtitle}
+                        </Typography>
+                      </Box>
                     </Box>
-                    
-                    <Chip
-                      label={project.category}
-                      sx={{
-                        position: 'absolute',
-                        top: 16,
-                        right: 16,
-                        background: theme.palette.mode === 'dark'
-                          ? 'rgba(200, 168, 130, 0.9)'
-                          : 'rgba(31, 41, 55, 0.9)',
-                        color: 'white',
-                        fontWeight: 600,
-                        fontSize: '0.75rem',
-                      }}
-                    />
-                  </CardMedia>
-                  
-                  <CardContent sx={{ flexGrow: 1, p: 3 }}>
+
+                    {/* Status & Type Badges */}
+                    <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+                      <Chip
+                        label={project.status}
+                        size="small"
+                        sx={{
+                          backgroundColor: project.status === 'Completed' 
+                            ? theme.palette.mode === 'dark' ? '#2E7D32' : '#4CAF50'
+                            : theme.palette.mode === 'dark' ? '#F57C00' : '#FF9800',
+                          color: '#FFFFFF',
+                          fontWeight: 600,
+                        }}
+                      />
+                      <Chip
+                        label={project.category}
+                        size="small"
+                        sx={{
+                          backgroundColor: `${project.color}30`,
+                          color: project.color,
+                          fontWeight: 600,
+                        }}
+                      />
+                      {project.teamProject && (
+                        <Chip
+                          icon={<Group sx={{ fontSize: '1rem !important' }} />}
+                          label="Team"
+                          size="small"
+                          sx={{
+                            backgroundColor: theme.palette.mode === 'dark' 
+                              ? 'rgba(243, 218, 223, 0.1)' 
+                              : 'rgba(3, 18, 47, 0.1)',
+                            color: theme.palette.text.secondary,
+                            fontWeight: 500,
+                          }}
+                        />
+                      )}
+                    </Box>
+                  </Box>
+
+                  <CardContent sx={{ flex: 1, p: 3 }}>
                     <Typography
-                      variant="h6"
+                      variant="body1"
                       sx={{
-                        mb: 2,
-                        fontWeight: 600,
-                        color: theme.palette.mode === 'dark' ? '#f5f5f5' : '#1f2937',
-                        fontSize: '1.25rem',
-                      }}
-                    >
-                      {project.title}
-                    </Typography>
-                    
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        mb: 3,
-                        color: theme.palette.mode === 'dark'
-                          ? 'rgba(229, 231, 235, 0.8)'
-                          : 'rgba(31, 41, 55, 0.7)',
+                        color: theme.palette.text.secondary,
                         lineHeight: 1.6,
-                        fontSize: '0.95rem',
+                        mb: 3,
                       }}
                     >
                       {project.description}
                     </Typography>
 
+                    {/* Technologies */}
                     <Box sx={{ mb: 3 }}>
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                        {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          color: theme.palette.text.primary,
+                          fontWeight: 600,
+                          mb: 1,
+                        }}
+                      >
+                        Technologies Used:
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {project.technologies.slice(0, 4).map((tech) => (
                           <Chip
-                            key={techIndex}
+                            key={tech}
                             label={tech}
                             size="small"
                             sx={{
-                              background: theme.palette.mode === 'dark'
-                                ? 'rgba(75, 85, 99, 0.5)'
-                                : 'rgba(148, 163, 184, 0.2)',
-                              color: theme.palette.mode === 'dark' ? '#e5e7eb' : '#374151',
-                              fontSize: '0.7rem',
-                              fontWeight: 500,
+                              fontSize: '0.75rem',
+                              height: '24px',
                             }}
                           />
                         ))}
-                        {project.technologies.length > 3 && (
+                        {project.technologies.length > 4 && (
                           <Chip
-                            label={`+${project.technologies.length - 3}`}
+                            label={`+${project.technologies.length - 4} more`}
                             size="small"
                             sx={{
-                              background: theme.palette.mode === 'dark'
-                                ? 'rgba(200, 168, 130, 0.3)'
-                                : 'rgba(31, 41, 55, 0.1)',
-                              color: theme.palette.mode === 'dark' ? '#d4b896' : '#1f2937',
-                              fontSize: '0.7rem',
-                              fontWeight: 600,
+                              fontSize: '0.75rem',
+                              height: '24px',
+                              backgroundColor: theme.palette.mode === 'dark' 
+                                ? 'rgba(243, 218, 223, 0.1)' 
+                                : 'rgba(3, 18, 47, 0.1)',
+                              color: theme.palette.text.secondary,
                             }}
                           />
                         )}
                       </Box>
                     </Box>
-
-                    <Box sx={{ display: 'flex', gap: 1, mt: 'auto' }}>
-                      <Button
-                        size="small"
-                        startIcon={<GitHub />}
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        sx={{
-                          flex: 1,
-                          background: theme.palette.mode === 'dark'
-                            ? 'rgba(75, 85, 99, 0.5)'
-                            : 'rgba(148, 163, 184, 0.2)',
-                          color: theme.palette.mode === 'dark' ? '#e5e7eb' : '#374151',
-                          '&:hover': {
-                            background: theme.palette.mode === 'dark'
-                              ? 'rgba(107, 114, 128, 0.7)'
-                              : 'rgba(148, 163, 184, 0.3)',
-                            transform: 'translateY(-2px)',
-                          },
-                        }}
-                      >
-                        Code
-                      </Button>
-                      <Button
-                        size="small"
-                        startIcon={<Launch />}
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        sx={{
-                          flex: 1,
-                          background: theme.palette.mode === 'dark'
-                            ? 'linear-gradient(135deg, #c8a882, #d4b896)'
-                            : 'linear-gradient(135deg, #1f2937, #374151)',
-                          color: 'white',
-                          '&:hover': {
-                            background: theme.palette.mode === 'dark'
-                              ? 'linear-gradient(135deg, #d4b896, #e2c4a0)'
-                              : 'linear-gradient(135deg, #374151, #4b5563)',
-                            transform: 'translateY(-2px)',
-                          },
-                        }}
-                      >
-                        Live
-                      </Button>
-                    </Box>
                   </CardContent>
+
+                  <CardActions sx={{ p: 3, pt: 0 }}>
+                    <Button
+                      variant="outlined"
+                      startIcon={<GitHub />}
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      sx={{ mr: 1 }}
+                    >
+                      Code
+                    </Button>
+                    <Button
+                      variant="contained"
+                      endIcon={<Star />}
+                      sx={{
+                        background: `linear-gradient(135deg, ${project.color} 0%, ${project.color}80 100%)`,
+                        color: '#FFFFFF',
+                      }}
+                    >
+                      View Details
+                    </Button>
+                  </CardActions>
                 </Card>
-              </Box>
+              </Slide>
             </Grid>
           ))}
         </Grid>
+      </Container>
 
-        {/* Project Detail Dialog */}
-        <Dialog
-          open={Boolean(selectedProject)}
-          onClose={handleCloseDialog}
-          maxWidth="md"
-          fullWidth
-          PaperProps={{
-            sx: {
-              borderRadius: 4,
-              backgroundColor: theme.palette.background.paper,
-            },
-          }}
-        >
-          {selectedProject && (
-            <>
-              <DialogTitle
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  pb: 2,
-                }}
-              >
-                <Typography variant="h5" fontWeight="bold">
+      {/* Project Detail Dialog */}
+      <Dialog
+        open={Boolean(selectedProject)}
+        onClose={handleCloseDialog}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: '20px',
+            background: theme.palette.mode === 'dark'
+              ? 'linear-gradient(145deg, #1A1A1A 0%, #252525 100%)'
+              : 'linear-gradient(145deg, #FFFFFF 0%, #F9F7F8 100%)',
+          },
+        }}
+      >
+        {selectedProject && (
+          <>
+            <DialogTitle
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                pb: 2,
+                borderBottom: `1px solid ${theme.palette.divider}`,
+              }}
+            >
+              <Box>
+                <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
                   {selectedProject.title}
                 </Typography>
-                <IconButton onClick={handleCloseDialog} size="large">
-                  <Close />
-                </IconButton>
-              </DialogTitle>
-              
-              <DialogContent>
-                <Box sx={{ mb: 3 }}>
-                  <Typography variant="body1" paragraph>
-                    {selectedProject.fullDescription}
-                  </Typography>
-                </Box>
-
-                <Typography
-                  variant="h6"
-                  sx={{ mb: 2, fontWeight: 600 }}
-                >
-                  Technologies Used
+                <Typography variant="subtitle1" sx={{ color: theme.palette.text.secondary }}>
+                  {selectedProject.subtitle}
                 </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 4 }}>
-                  {selectedProject.technologies.map((tech, index) => (
-                    <Chip
-                      key={index}
-                      label={tech}
-                      color="primary"
-                      variant="outlined"
-                    />
-                  ))}
-                </Box>
+              </Box>
+              <IconButton onClick={handleCloseDialog}>
+                <Close />
+              </IconButton>
+            </DialogTitle>
+            <DialogContent sx={{ p: 4 }}>
+              <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7 }}>
+                {selectedProject.fullDescription}
+              </Typography>
 
-                <Typography
-                  variant="h6"
-                  sx={{ mb: 2, fontWeight: 600 }}
-                >
-                  Key Features
-                </Typography>
-                <Grid container spacing={1} sx={{ mb: 3 }}>
-                  {selectedProject.features.map((feature, index) => (
-                    <Grid size={{ xs: 12, sm: 6 }} key={index}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                        <Box
-                          sx={{
-                            width: 6,
-                            height: 6,
-                            borderRadius: '50%',
-                            backgroundColor: theme.palette.secondary.main,
-                            mr: 2,
-                          }}
-                        />
-                        <Typography variant="body2">
-                          {feature}
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-
-                <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
-                  <Button
-                    variant="outlined"
-                    startIcon={<GitHub />}
-                    href={selectedProject.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{ flex: 1 }}
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                My Contributions:
+              </Typography>
+              <Box component="ul" sx={{ mb: 3, pl: 2 }}>
+                {selectedProject.myRole.map((role, index) => (
+                  <Typography
+                    component="li"
+                    key={index}
+                    variant="body2"
+                    sx={{ mb: 1, color: theme.palette.text.secondary }}
                   >
-                    View Code
-                  </Button>
+                    {role}
+                  </Typography>
+                ))}
+              </Box>
+
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                Technologies Used:
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+                {selectedProject.technologies.map((tech) => (
+                  <Chip key={tech} label={tech} />
+                ))}
+              </Box>
+
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Button
+                  variant="outlined"
+                  startIcon={<GitHub />}
+                  href={selectedProject.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Code
+                </Button>
+                {selectedProject.liveUrl && (
                   <Button
                     variant="contained"
                     startIcon={<Launch />}
                     href={selectedProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    sx={{ flex: 1 }}
                   >
                     Live Demo
                   </Button>
-                </Box>
-              </DialogContent>
-            </>
-          )}
-        </Dialog>
-      </Container>
+                )}
+              </Box>
+            </DialogContent>
+          </>
+        )}
+      </Dialog>
     </Box>
   );
 };

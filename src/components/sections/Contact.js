@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -11,9 +11,10 @@ import {
   IconButton,
   Snackbar,
   Alert,
+  Divider,
   useTheme,
   Fade,
-  Grow,
+  Slide,
 } from '@mui/material';
 import {
   Email,
@@ -23,10 +24,15 @@ import {
   LinkedIn,
   Send,
   Download,
+  WhatsApp,
+  Instagram,
+  Twitter,
 } from '@mui/icons-material';
 
 const Contact = () => {
   const theme = useTheme();
+  const contactRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,39 +45,69 @@ const Contact = () => {
     severity: 'success',
   });
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (contactRef.current) observer.observe(contactRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
   const contactInfo = [
     {
       icon: <Email />,
       title: 'Email',
-      value: 'your.email@example.com',
-      action: 'mailto:your.email@example.com',
+      value: 'piyumi.upeksha@example.com',
+      action: 'mailto:piyumi.upeksha@example.com',
+      color: theme.palette.primary.main,
     },
     {
       icon: <Phone />,
       title: 'Phone',
       value: '+94 XX XXX XXXX',
       action: 'tel:+94XXXXXXXXX',
+      color: theme.palette.accent.main,
     },
     {
       icon: <LocationOn />,
       title: 'Location',
       value: 'Colombo, Sri Lanka',
       action: null,
+      color: theme.palette.tertiary.main,
     },
   ];
 
   const socialLinks = [
     {
       icon: <GitHub />,
-      name: 'GitHub',
-      url: 'https://github.com/yourusername',
-      color: '#333',
+      label: 'GitHub',
+      url: 'https://github.com/Piyu-24',
+      color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#333333',
     },
     {
       icon: <LinkedIn />,
-      name: 'LinkedIn',
-      url: 'https://linkedin.com/in/yourprofile',
+      label: 'LinkedIn',
+      url: 'https://linkedin.com/in/piyumi-upeksha',
       color: '#0077B5',
+    },
+    {
+      icon: <WhatsApp />,
+      label: 'WhatsApp',
+      url: 'https://wa.me/94XXXXXXXXX',
+      color: '#25D366',
+    },
+    {
+      icon: <Instagram />,
+      label: 'Instagram',
+      url: 'https://instagram.com/piyumi_upeksha',
+      color: '#E4405F',
     },
   ];
 
@@ -85,8 +121,10 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically handle the form submission
-    // For now, we'll just show a success message
+    // Here you would typically send the form data to your backend
+    console.log('Form submitted:', formData);
+    
+    // Show success message
     setSnackbar({
       open: true,
       message: 'Thank you for your message! I\'ll get back to you soon.',
@@ -106,33 +144,63 @@ const Contact = () => {
     setSnackbar(prev => ({ ...prev, open: false }));
   };
 
-  const handleDownloadResume = () => {
-    // Add resume download logic here
+  const handleDownloadCV = () => {
+    // Direct download link from Google Drive
+    // Replace FILE_ID with your actual Google Drive file ID
+    const driveFileId = '1M2lVjet-nmuTKdlJyc3myEcIThBA_8d6'; // Your Google Drive file ID
+    const downloadUrl = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
+    
+    // Create download link
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = 'Piyumi_Upeksha_CV.pdf';
+    link.target = '_blank'; // Open in new tab as fallback
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show success message
     setSnackbar({
       open: true,
-      message: 'Resume download started!',
-      severity: 'info',
+      message: 'CV download started successfully!',
+      severity: 'success',
     });
   };
 
   return (
     <Box
+      ref={contactRef}
       id="contact"
       sx={{
         py: { xs: 8, md: 12 },
         background: theme.palette.mode === 'dark'
-          ? `linear-gradient(135deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`
-          : `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.light} 100%)`,
+          ? 'linear-gradient(180deg, #252525 0%, #1A1A1A 50%, #0F0F0F 100%)'
+          : 'linear-gradient(180deg, #F3DADF 0%, #F9F7F8 50%, #FEFEFE 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: theme.palette.mode === 'dark'
+            ? 'radial-gradient(circle at 20% 80%, rgba(174, 125, 172, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(241, 145, 109, 0.1) 0%, transparent 50%)'
+            : 'radial-gradient(circle at 20% 80%, rgba(3, 18, 47, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(25, 48, 92, 0.06) 0%, transparent 50%)',
+          zIndex: 1,
+        },
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-        <Fade in timeout={1000}>
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 2 }}>
+        {/* Section Header */}
+        <Fade in={isVisible} timeout={800}>
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography
               variant="h6"
               sx={{
-                color: theme.palette.secondary.main,
-                fontWeight: 500,
+                color: theme.palette.accent.main,
+                fontWeight: 600,
                 mb: 2,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
@@ -144,85 +212,100 @@ const Contact = () => {
               variant="h2"
               sx={{
                 mb: 4,
-                color: theme.palette.text.primary,
-                fontWeight: 'bold',
+                fontWeight: 700,
+                background: theme.palette.mode === 'dark'
+                  ? 'linear-gradient(135deg, #F3DADF 0%, #AE7DAC 100%)'
+                  : 'linear-gradient(135deg, #03122F 0%, #19305C 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
             >
               Let's Work Together
             </Typography>
             <Typography
-              variant="body1"
+              variant="h5"
               sx={{
                 color: theme.palette.text.secondary,
-                fontSize: '1.1rem',
-                maxWidth: 600,
+                maxWidth: '800px',
                 mx: 'auto',
-                lineHeight: 1.7,
+                lineHeight: 1.6,
               }}
             >
-              I'm always interested in new opportunities, challenging projects,
-              and meaningful collaborations. Feel free to reach out if you'd like
-              to discuss potential work or just want to connect!
+              Ready to turn ideas into reality? I'd love to hear about your project 
+              and discuss how we can collaborate to build something amazing
             </Typography>
           </Box>
         </Fade>
 
         <Grid container spacing={6}>
           {/* Contact Information */}
-          <Grid size={{ xs: 12, lg: 4 }}>
-            <Fade in timeout={1200}>
+          <Grid size={{ xs: 12, md: 5 }}>
+            <Slide direction="right" in={isVisible} timeout={1000}>
               <Box>
                 <Typography
-                  variant="h5"
+                  variant="h4"
                   sx={{
                     mb: 4,
+                    fontWeight: 700,
                     color: theme.palette.text.primary,
-                    fontWeight: 600,
                   }}
                 >
                   Contact Information
                 </Typography>
 
-                {contactInfo.map((info, index) => (
-                  <Grow in timeout={1000 + (index * 200)} key={index}>
+                {/* Contact Details */}
+                <Box sx={{ mb: 4 }}>
+                  {contactInfo.map((info, index) => (
                     <Card
+                      key={index}
                       sx={{
-                        mb: 3,
-                        p: 3,
-                        backgroundColor: theme.palette.background.paper,
-                        border: `1px solid ${theme.palette.primary.light}`,
+                        mb: 2,
+                        background: theme.palette.mode === 'dark'
+                          ? 'linear-gradient(145deg, #252525 0%, #1A1A1A 100%)'
+                          : 'linear-gradient(145deg, #FFFFFF 0%, #F9F7F8 100%)',
+                        border: `1px solid ${info.color}30`,
+                        borderRadius: '16px',
                         transition: 'all 0.3s ease',
                         cursor: info.action ? 'pointer' : 'default',
                         '&:hover': info.action ? {
-                          transform: 'translateY(-4px)',
-                          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
-                          borderColor: theme.palette.secondary.main,
+                          transform: 'translateX(8px)',
+                          boxShadow: `0 8px 25px ${info.color}20`,
                         } : {},
                       }}
-                      onClick={info.action ? () => window.open(info.action) : undefined}
+                      component={info.action ? 'a' : 'div'}
+                      href={info.action || undefined}
+                      onClick={!info.action ? undefined : (e) => {
+                        if (info.action.startsWith('mailto:') || info.action.startsWith('tel:')) {
+                          window.location.href = info.action;
+                        }
+                      }}
                     >
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <CardContent sx={{ display: 'flex', alignItems: 'center', p: 2.5 }}>
                         <Box
                           sx={{
+                            width: 50,
+                            height: 50,
+                            borderRadius: '12px',
+                            background: `linear-gradient(135deg, ${info.color} 0%, ${info.color}80 100%)`,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            width: 50,
-                            height: 50,
-                            borderRadius: '50%',
-                            backgroundColor: theme.palette.secondary.main,
-                            color: 'white',
-                            mr: 3,
+                            mr: 2,
+                            '& svg': {
+                              color: '#FFFFFF',
+                              fontSize: '1.5rem',
+                            },
                           }}
                         >
                           {info.icon}
                         </Box>
                         <Box>
                           <Typography
-                            variant="h6"
+                            variant="subtitle1"
                             sx={{
-                              color: theme.palette.text.primary,
                               fontWeight: 600,
+                              color: theme.palette.text.primary,
                               mb: 0.5,
                             }}
                           >
@@ -237,19 +320,19 @@ const Contact = () => {
                             {info.value}
                           </Typography>
                         </Box>
-                      </Box>
+                      </CardContent>
                     </Card>
-                  </Grow>
-                ))}
+                  ))}
+                </Box>
 
                 {/* Social Links */}
-                <Box sx={{ mt: 4 }}>
+                <Box sx={{ mb: 4 }}>
                   <Typography
                     variant="h6"
                     sx={{
-                      mb: 3,
-                      color: theme.palette.text.primary,
+                      mb: 2,
                       fontWeight: 600,
+                      color: theme.palette.text.primary,
                     }}
                   >
                     Connect With Me
@@ -258,20 +341,20 @@ const Contact = () => {
                     {socialLinks.map((social, index) => (
                       <IconButton
                         key={index}
+                        component="a"
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         sx={{
-                          backgroundColor: social.color,
-                          color: 'white',
                           width: 50,
                           height: 50,
-                          '&:hover': {
-                            backgroundColor: social.color,
-                            transform: 'translateY(-2px)',
-                            opacity: 0.9,
-                          },
+                          background: `linear-gradient(135deg, ${social.color} 0%, ${social.color}80 100%)`,
+                          color: '#FFFFFF',
                           transition: 'all 0.3s ease',
+                          '&:hover': {
+                            transform: 'translateY(-5px) scale(1.1)',
+                            boxShadow: `0 10px 20px ${social.color}40`,
+                          },
                         }}
                       >
                         {social.icon}
@@ -280,55 +363,57 @@ const Contact = () => {
                   </Box>
                 </Box>
 
-                {/* Resume Download */}
-                <Box sx={{ mt: 4 }}>
-                  <Button
-                    variant="contained"
-                    startIcon={<Download />}
-                    onClick={handleDownloadResume}
-                    fullWidth
-                    sx={{
-                      backgroundColor: theme.palette.secondary.main,
-                      color: 'white',
-                      py: 1.5,
-                      fontSize: '1rem',
-                      fontWeight: 600,
-                      '&:hover': {
-                        backgroundColor: theme.palette.secondary.dark,
-                        transform: 'translateY(-2px)',
-                      },
-                      transition: 'all 0.3s ease',
-                    }}
-                  >
-                    Download Resume
-                  </Button>
-                </Box>
+                {/* Download CV Button */}
+                <Button
+                  variant="contained"
+                  startIcon={<Download />}
+                  onClick={handleDownloadCV}
+                  sx={{
+                    py: 1.5,
+                    px: 3,
+                    background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.accent.main} 100%)`,
+                    color: '#FFFFFF',
+                    fontWeight: 600,
+                    borderRadius: '12px',
+                    textTransform: 'none',
+                    fontSize: '1rem',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: `0 8px 25px ${theme.palette.primary.main}40`,
+                    },
+                  }}
+                >
+                  Download My CV
+                </Button>
               </Box>
-            </Fade>
+            </Slide>
           </Grid>
 
           {/* Contact Form */}
-          <Grid size={{ xs: 12, lg: 8 }}>
-            <Fade in timeout={1500}>
+          <Grid size={{ xs: 12, md: 7 }}>
+            <Slide direction="left" in={isVisible} timeout={1200}>
               <Card
                 sx={{
+                  background: theme.palette.mode === 'dark'
+                    ? 'linear-gradient(145deg, #252525 0%, #1A1A1A 100%)'
+                    : 'linear-gradient(145deg, #FFFFFF 0%, #F9F7F8 100%)',
+                  borderRadius: '20px',
+                  border: `1px solid ${theme.palette.divider}`,
                   p: 4,
-                  backgroundColor: theme.palette.background.paper,
-                  border: `1px solid ${theme.palette.primary.light}`,
                 }}
               >
                 <Typography
-                  variant="h5"
+                  variant="h4"
                   sx={{
-                    mb: 4,
+                    mb: 3,
+                    fontWeight: 700,
                     color: theme.palette.text.primary,
-                    fontWeight: 600,
                   }}
                 >
                   Send Me a Message
                 </Typography>
 
-                <form onSubmit={handleSubmit}>
+                <Box component="form" onSubmit={handleSubmit}>
                   <Grid container spacing={3}>
                     <Grid size={{ xs: 12, sm: 6 }}>
                       <TextField
@@ -340,15 +425,7 @@ const Contact = () => {
                         required
                         sx={{
                           '& .MuiOutlinedInput-root': {
-                            '&:hover fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                            '&.Mui-focused fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                          },
-                          '& .MuiInputLabel-root.Mui-focused': {
-                            color: theme.palette.secondary.main,
+                            borderRadius: '12px',
                           },
                         }}
                       />
@@ -364,15 +441,7 @@ const Contact = () => {
                         required
                         sx={{
                           '& .MuiOutlinedInput-root': {
-                            '&:hover fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                            '&.Mui-focused fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                          },
-                          '& .MuiInputLabel-root.Mui-focused': {
-                            color: theme.palette.secondary.main,
+                            borderRadius: '12px',
                           },
                         }}
                       />
@@ -387,15 +456,7 @@ const Contact = () => {
                         required
                         sx={{
                           '& .MuiOutlinedInput-root': {
-                            '&:hover fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                            '&.Mui-focused fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                          },
-                          '& .MuiInputLabel-root.Mui-focused': {
-                            color: theme.palette.secondary.main,
+                            borderRadius: '12px',
                           },
                         }}
                       />
@@ -412,15 +473,7 @@ const Contact = () => {
                         required
                         sx={{
                           '& .MuiOutlinedInput-root': {
-                            '&:hover fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                            '&.Mui-focused fieldset': {
-                              borderColor: theme.palette.secondary.main,
-                            },
-                          },
-                          '& .MuiInputLabel-root.Mui-focused': {
-                            color: theme.palette.secondary.main,
+                            borderRadius: '12px',
                           },
                         }}
                       />
@@ -429,52 +482,54 @@ const Contact = () => {
                       <Button
                         type="submit"
                         variant="contained"
-                        size="large"
-                        startIcon={<Send />}
+                        endIcon={<Send />}
                         sx={{
-                          backgroundColor: theme.palette.secondary.main,
-                          color: 'white',
-                          px: 4,
                           py: 1.5,
-                          fontSize: '1rem',
+                          px: 4,
+                          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.accent.main} 100%)`,
+                          color: '#FFFFFF',
                           fontWeight: 600,
+                          borderRadius: '12px',
+                          textTransform: 'none',
+                          fontSize: '1rem',
                           '&:hover': {
-                            backgroundColor: theme.palette.secondary.dark,
                             transform: 'translateY(-2px)',
+                            boxShadow: `0 8px 25px ${theme.palette.primary.main}40`,
                           },
-                          transition: 'all 0.3s ease',
                         }}
                       >
                         Send Message
                       </Button>
                     </Grid>
                   </Grid>
-                </form>
+                </Box>
               </Card>
-            </Fade>
+            </Slide>
           </Grid>
         </Grid>
 
         {/* Footer */}
-        <Fade in timeout={2000}>
-          <Box sx={{ mt: 8, textAlign: 'center', pt: 4, borderTop: `1px solid ${theme.palette.primary.light}` }}>
+        <Fade in={isVisible} timeout={1500}>
+          <Box sx={{ mt: 8, pt: 4, borderTop: `1px solid ${theme.palette.divider}` }}>
             <Typography
-              variant="body2"
+              variant="body1"
               sx={{
+                textAlign: 'center',
                 color: theme.palette.text.secondary,
                 mb: 2,
               }}
             >
-              Thank you for visiting my portfolio. Looking forward to connecting with you!
+              Thank you for visiting my portfolio! Looking forward to hearing from you.
             </Typography>
             <Typography
               variant="body2"
               sx={{
+                textAlign: 'center',
                 color: theme.palette.text.secondary,
                 opacity: 0.7,
               }}
             >
-              © 2024 Portfolio. Built with React & Material-UI.
+              © 2024 Piyumi Upeksha. Built with React & Material-UI.
             </Typography>
           </Box>
         </Fade>
@@ -485,9 +540,13 @@ const Contact = () => {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
           {snackbar.message}
         </Alert>
       </Snackbar>

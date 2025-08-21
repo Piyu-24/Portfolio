@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -6,11 +6,11 @@ import {
   Grid,
   Card,
   CardContent,
-  LinearProgress,
   Chip,
   useTheme,
   Fade,
-  Grow,
+  Slide,
+  useMediaQuery,
 } from '@mui/material';
 import {
   Code,
@@ -19,170 +19,223 @@ import {
   CloudQueue,
   DeviceHub,
   Security,
+  Language,
+  Build,
+  Palette,
+  TrendingUp,
 } from '@mui/icons-material';
 
 const Skills = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const skillsRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (skillsRef.current) observer.observe(skillsRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   const skillCategories = [
     {
-      icon: <Code />,
+      icon: <Language />,
       title: 'Programming Languages',
+      color: theme.palette.primary.main,
       skills: [
-        { name: 'JavaScript', level: 90 },
-        { name: 'Python', level: 85 },
-        { name: 'Java', level: 80 },
-        { name: 'C++', level: 75 },
-        { name: 'TypeScript', level: 85 },
+        { name: 'JavaScript', level: 'Advanced', projects: '8+ projects' },
+        { name: 'Python', level: 'Advanced', projects: '6+ projects' },
+        { name: 'Java', level: 'Intermediate', projects: '4+ projects' },
+        { name: 'C', level: 'Intermediate', projects: 'Academic' },
       ],
     },
     {
       icon: <Web />,
-      title: 'Web Development',
+      title: 'Frontend Development',
+      color: theme.palette.accent.main,
       skills: [
-        { name: 'React.js', level: 95 },
-        { name: 'Node.js', level: 88 },
-        { name: 'HTML/CSS', level: 92 },
-        { name: 'Express.js', level: 85 },
-        { name: 'Material-UI', level: 90 },
+        { name: 'React.js', level: 'Expert', projects: '10+ projects' },
+        { name: 'Material UI', level: 'Expert', projects: 'Professional' },
+        { name: 'HTML/CSS', level: 'Advanced', projects: '15+ projects' },
+        { name: 'Responsive Design', level: 'Advanced', projects: 'Professional' },
       ],
     },
     {
       icon: <Storage />,
-      title: 'Databases',
+      title: 'Backend & Database',
+      color: theme.palette.tertiary.main,
       skills: [
-        { name: 'MySQL', level: 85 },
-        { name: 'MongoDB', level: 80 },
-        { name: 'PostgreSQL', level: 78 },
-        { name: 'Redis', level: 70 },
-        { name: 'Firebase', level: 82 },
+        { name: 'Node.js', level: 'Advanced', projects: '8+ projects' },
+        { name: 'Express.js', level: 'Advanced', projects: '6+ projects' },
+        { name: 'MongoDB', level: 'Advanced', projects: '5+ projects' },
+        { name: 'MySQL', level: 'Advanced', projects: '8+ projects' },
+        { name: 'Laravel', level: 'Intermediate', projects: '3+ projects' },
+        { name: 'REST APIs', level: 'Advanced', projects: 'Professional' },
       ],
     },
     {
-      icon: <CloudQueue />,
-      title: 'Cloud & DevOps',
+      icon: <Build />,
+      title: 'Development Tools',
+      color: theme.palette.secondary.main,
       skills: [
-        { name: 'AWS', level: 75 },
-        { name: 'Docker', level: 80 },
-        { name: 'Git/GitHub', level: 90 },
-        { name: 'CI/CD', level: 70 },
-        { name: 'Linux', level: 78 },
+        { name: 'Git/GitHub', level: 'Advanced', projects: 'Daily use' },
+        { name: 'XAMPP', level: 'Advanced', projects: 'Development' },
+        { name: 'Postman', level: 'Advanced', projects: 'API Testing' },
+        { name: 'VS Code', level: 'Expert', projects: 'Primary IDE' },
       ],
     },
     {
-      icon: <DeviceHub />,
-      title: 'Frameworks & Tools',
+      icon: <Palette />,
+      title: 'Design & Creativity',
+      color: theme.palette.accent.main,
       skills: [
-        { name: 'React Native', level: 85 },
-        { name: 'Next.js', level: 82 },
-        { name: 'Django', level: 80 },
-        { name: 'Spring Boot', level: 75 },
-        { name: 'Vue.js', level: 70 },
+        { name: 'Figma', level: 'Advanced', projects: 'UI/UX Design' },
+        { name: 'Canva', level: 'Advanced', projects: 'Graphics' },
+        { name: 'Photoshop', level: 'Intermediate', projects: 'Design' },
+        { name: 'UI/UX Principles', level: 'Advanced', projects: 'Professional' },
       ],
     },
     {
-      icon: <Security />,
-      title: 'Management & Others',
+      icon: <TrendingUp />,
+      title: 'Professional Skills',
+      color: theme.palette.primary.main,
       skills: [
-        { name: 'Project Management', level: 88 },
-        { name: 'Agile/Scrum', level: 85 },
-        { name: 'Team Leadership', level: 82 },
-        { name: 'Problem Solving', level: 92 },
-        { name: 'Communication', level: 90 },
+        { name: 'Project Management', level: 'Advanced', projects: 'Leadership' },
+        { name: 'Team Leadership', level: 'Advanced', projects: 'Prefect Role' },
+        { name: 'Problem Solving', level: 'Expert', projects: 'Competitions' },
+        { name: 'Communication', level: 'Advanced', projects: 'Professional' },
       ],
     },
   ];
 
-  const technologies = [
-    'React', 'Node.js', 'Python', 'JavaScript', 'TypeScript', 'MongoDB',
-    'MySQL', 'AWS', 'Docker', 'Git', 'Material-UI', 'Express.js',
-    'Next.js', 'Django', 'Java', 'C++', 'PostgreSQL', 'Redis',
-    'Firebase', 'Linux', 'Agile', 'Scrum', 'CI/CD', 'REST APIs',
+  const certifications = [
+    'CODL UOM - Python for Beginners',
+    'Udemy - JavaScript Course',
+    'Bank of Ceylon - Internship (8 months)',
   ];
 
   return (
     <Box
+      ref={skillsRef}
       id="skills"
       sx={{
         py: { xs: 8, md: 12 },
         background: theme.palette.mode === 'dark'
-          ? `linear-gradient(135deg, ${theme.palette.background.default} 0%, ${theme.palette.background.paper} 100%)`
-          : `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${theme.palette.primary.light} 100%)`,
+          ? 'linear-gradient(180deg, #252525 0%, #1A1A1A 50%, #0F0F0F 100%)'
+          : 'linear-gradient(180deg, #F3DADF 0%, #F9F7F8 50%, #FEFEFE 100%)',
+        position: 'relative',
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: theme.palette.mode === 'dark'
+            ? 'radial-gradient(circle at 70% 30%, rgba(174, 125, 172, 0.08) 0%, transparent 50%), radial-gradient(circle at 30% 70%, rgba(241, 145, 109, 0.06) 0%, transparent 50%)'
+            : 'radial-gradient(circle at 70% 30%, rgba(3, 18, 47, 0.04) 0%, transparent 50%), radial-gradient(circle at 30% 70%, rgba(174, 125, 172, 0.06) 0%, transparent 50%)',
+          zIndex: 1,
+        },
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-        <Fade in timeout={1000}>
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 2 }}>
+        {/* Section Header */}
+        <Fade in={isVisible} timeout={800}>
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography
               variant="h6"
               sx={{
-                color: theme.palette.secondary.main,
-                fontWeight: 500,
+                color: theme.palette.accent.main,
+                fontWeight: 600,
                 mb: 2,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
               }}
             >
-              Skills & Expertise
+              My Expertise
             </Typography>
             <Typography
               variant="h2"
               sx={{
                 mb: 4,
-                color: theme.palette.text.primary,
-                fontWeight: 'bold',
+                fontWeight: 700,
+                background: theme.palette.mode === 'dark'
+                  ? 'linear-gradient(135deg, #F3DADF 0%, #AE7DAC 100%)'
+                  : 'linear-gradient(135deg, #03122F 0%, #19305C 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
             >
-              Technical Proficiency
+              Skills & Expertise
             </Typography>
             <Typography
-              variant="body1"
+              variant="h5"
               sx={{
                 color: theme.palette.text.secondary,
-                fontSize: '1.1rem',
-                maxWidth: 600,
+                maxWidth: '800px',
                 mx: 'auto',
-                lineHeight: 1.7,
+                lineHeight: 1.6,
               }}
             >
-              A comprehensive overview of my technical skills, tools, and technologies
-              I work with to create innovative solutions and drive project success.
+              Professional competencies spanning full-stack development, modern frameworks,
+              and proven project experience across multiple domains
             </Typography>
           </Box>
         </Fade>
 
-        {/* Skill Categories */}
+        {/* Skills Grid */}
         <Grid container spacing={4} sx={{ mb: 8 }}>
-          {skillCategories.map((category, index) => (
-            <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={index}>
-              <Grow in timeout={1000 + (index * 200)}>
+          {skillCategories.map((category, categoryIndex) => (
+            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={category.title}>
+              <Slide
+                direction="up"
+                in={isVisible}
+                timeout={1000 + categoryIndex * 200}
+              >
                 <Card
                   sx={{
                     height: '100%',
                     p: 3,
-                    backgroundColor: theme.palette.background.paper,
-                    border: `1px solid ${theme.palette.primary.light}`,
-                    transition: 'all 0.3s ease',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
-                      borderColor: theme.palette.secondary.main,
+                      transform: 'translateY(-8px) scale(1.02)',
                     },
                   }}
                 >
-                  <CardContent>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                  <CardContent sx={{ p: 0 }}>
+                    {/* Category Header */}
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        mb: 3,
+                      }}
+                    >
                       <Box
                         sx={{
+                          width: 50,
+                          height: 50,
+                          borderRadius: '12px',
+                          background: `linear-gradient(135deg, ${category.color}20 0%, ${category.color}40 100%)`,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          width: 50,
-                          height: 50,
-                          borderRadius: '50%',
-                          backgroundColor: theme.palette.secondary.main,
-                          color: 'white',
                           mr: 2,
+                          '& svg': {
+                            color: category.color,
+                            fontSize: '1.8rem',
+                          },
                         }}
                       >
                         {category.icon}
@@ -190,78 +243,109 @@ const Skills = () => {
                       <Typography
                         variant="h6"
                         sx={{
-                          color: theme.palette.text.primary,
                           fontWeight: 600,
+                          color: theme.palette.text.primary,
                         }}
                       >
                         {category.title}
                       </Typography>
                     </Box>
 
-                    {category.skills.map((skill, skillIndex) => (
-                      <Box key={skillIndex} sx={{ mb: 2 }}>
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            mb: 1,
-                          }}
+                    {/* Skills List */}
+                    <Box>
+                      {category.skills.map((skill, skillIndex) => (
+                        <Slide
+                          key={skill.name}
+                          direction="right"
+                          in={isVisible}
+                          timeout={1200 + categoryIndex * 100 + skillIndex * 50}
                         >
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              color: theme.palette.text.primary,
-                              fontWeight: 500,
+                          <Box 
+                            sx={{ 
+                              mb: 2.5,
+                              p: 2,
+                              backgroundColor: theme.palette.mode === 'dark'
+                                ? 'rgba(243, 218, 223, 0.03)'
+                                : 'rgba(3, 18, 47, 0.02)',
+                              borderRadius: '10px',
+                              border: theme.palette.mode === 'dark'
+                                ? '1px solid rgba(243, 218, 223, 0.08)'
+                                : '1px solid rgba(3, 18, 47, 0.05)',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                backgroundColor: theme.palette.mode === 'dark'
+                                  ? 'rgba(243, 218, 223, 0.06)'
+                                  : 'rgba(3, 18, 47, 0.04)',
+                                transform: 'translateX(4px)',
+                              },
                             }}
                           >
-                            {skill.name}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              color: theme.palette.text.secondary,
-                              fontWeight: 500,
-                            }}
-                          >
-                            {skill.level}%
-                          </Typography>
-                        </Box>
-                        <LinearProgress
-                          variant="determinate"
-                          value={skill.level}
-                          sx={{
-                            height: 6,
-                            borderRadius: 3,
-                            backgroundColor: theme.palette.primary.light,
-                            '& .MuiLinearProgress-bar': {
-                              borderRadius: 3,
-                              backgroundColor: theme.palette.secondary.main,
-                            },
-                          }}
-                        />
-                      </Box>
-                    ))}
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'flex-start',
+                                mb: 0.5,
+                              }}
+                            >
+                              <Typography
+                                variant="body1"
+                                sx={{
+                                  fontWeight: 600,
+                                  color: theme.palette.text.primary,
+                                  fontSize: '0.95rem',
+                                }}
+                              >
+                                {skill.name}
+                              </Typography>
+                              <Chip
+                                label={skill.level}
+                                size="small"
+                                sx={{
+                                  backgroundColor: `${category.color}20`,
+                                  color: category.color,
+                                  fontWeight: 600,
+                                  fontSize: '0.75rem',
+                                  height: '24px',
+                                  '& .MuiChip-label': {
+                                    px: 1.5,
+                                  },
+                                }}
+                              />
+                            </Box>
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                color: theme.palette.text.secondary,
+                                fontSize: '0.85rem',
+                                fontStyle: 'italic',
+                              }}
+                            >
+                              {skill.projects}
+                            </Typography>
+                          </Box>
+                        </Slide>
+                      ))}
+                    </Box>
                   </CardContent>
                 </Card>
-              </Grow>
+              </Slide>
             </Grid>
           ))}
         </Grid>
 
-        {/* Technology Tags */}
-        <Fade in timeout={1500}>
-          <Box>
+        {/* Certifications Section */}
+        <Fade in={isVisible} timeout={1500}>
+          <Box sx={{ textAlign: 'center' }}>
             <Typography
-              variant="h5"
+              variant="h4"
               sx={{
                 mb: 4,
-                color: theme.palette.text.primary,
                 fontWeight: 600,
-                textAlign: 'center',
+                color: theme.palette.text.primary,
               }}
             >
-              Technologies I Work With
+              Certifications & Training
             </Typography>
             <Box
               sx={{
@@ -269,70 +353,41 @@ const Skills = () => {
                 flexWrap: 'wrap',
                 gap: 2,
                 justifyContent: 'center',
-                maxWidth: 800,
-                mx: 'auto',
+                mb: 4,
               }}
             >
-              {technologies.map((tech, index) => (
+              {certifications.map((cert, index) => (
                 <Chip
-                  key={index}
-                  label={tech}
+                  key={cert}
+                  label={cert}
                   sx={{
-                    backgroundColor: theme.palette.secondary.main,
-                    color: 'white',
-                    fontWeight: 500,
-                    fontSize: '0.9rem',
+                    fontSize: '1rem',
+                    py: 3,
                     px: 2,
-                    py: 1,
-                    '&:hover': {
-                      backgroundColor: theme.palette.secondary.dark,
-                      transform: 'translateY(-2px)',
-                    },
+                    height: 'auto',
                     transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+                    },
                   }}
                 />
               ))}
             </Box>
-          </Box>
-        </Fade>
-
-        {/* Skills Summary */}
-        <Fade in timeout={1800}>
-          <Box sx={{ mt: 8, textAlign: 'center' }}>
-            <Card
+            
+            <Typography
+              variant="body1"
               sx={{
-                p: 4,
-                backgroundColor: theme.palette.mode === 'dark'
-                  ? theme.palette.background.paper
-                  : theme.palette.primary.light,
-                border: `2px solid ${theme.palette.primary.main}`,
+                color: theme.palette.text.secondary,
+                maxWidth: '600px',
+                mx: 'auto',
+                fontSize: '1.1rem',
+                lineHeight: 1.7,
               }}
             >
-              <Typography
-                variant="h6"
-                sx={{
-                  mb: 3,
-                  color: theme.palette.text.primary,
-                  fontWeight: 600,
-                }}
-              >
-                Continuous Learning & Growth
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: theme.palette.text.secondary,
-                  lineHeight: 1.7,
-                  maxWidth: 700,
-                  mx: 'auto',
-                }}
-              >
-                I believe in staying current with emerging technologies and industry trends.
-                My skill set continues to evolve as I take on new challenges and explore
-                innovative solutions. I'm always eager to learn new technologies and
-                apply them to create better user experiences and more efficient systems.
-              </Typography>
-            </Card>
+              Continuously learning and adapting to new technologies to stay at the 
+              forefront of software development and deliver innovative solutions.
+            </Typography>
           </Box>
         </Fade>
       </Container>
