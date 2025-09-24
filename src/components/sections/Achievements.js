@@ -448,66 +448,7 @@ const Achievements = () => {
           ))}
         </Grid>
 
-        {/* Summary Stats */}
-        <Fade in={isVisible} timeout={1500}>
-          <Box
-            sx={{
-              mt: 8,
-              p: 4,
-              background: theme.palette.mode === 'dark'
-                ? 'linear-gradient(145deg, #1A1A1A 0%, #252525 100%)'
-                : 'linear-gradient(145deg, #FFFFFF 0%, #F9F7F8 100%)',
-              borderRadius: '20px',
-              border: `1px solid ${theme.palette.divider}`,
-              textAlign: 'center',
-            }}
-          >
-            <Typography
-              variant="h4"
-              sx={{
-                mb: 3,
-                fontWeight: 700,
-                color: theme.palette.text.primary,
-              }}
-            >
-              Achievement Summary
-            </Typography>
-            <Grid container spacing={4}>
-              <Grid size={{ xs: 6, md: 3 }}>
-                <Typography variant="h3" sx={{ color: theme.palette.primary.main, fontWeight: 700 }}>
-                  2
-                </Typography>
-                <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-                  Competition Awards
-                </Typography>
-              </Grid>
-              <Grid size={{ xs: 6, md: 3 }}>
-                <Typography variant="h3" sx={{ color: theme.palette.accent.main, fontWeight: 700 }}>
-                  4+
-                </Typography>
-                <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-                  Projects Completed
-                </Typography>
-              </Grid>
-              <Grid size={{ xs: 6, md: 3 }}>
-                <Typography variant="h3" sx={{ color: theme.palette.tertiary.main, fontWeight: 700 }}>
-                  3+
-                </Typography>
-                <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-                  Years Experience
-                </Typography>
-              </Grid>
-              <Grid size={{ xs: 6, md: 3 }}>
-                <Typography variant="h3" sx={{ color: theme.palette.secondary.main, fontWeight: 700 }}>
-                  10+
-                </Typography>
-                <Typography variant="body1" sx={{ color: theme.palette.text.secondary }}>
-                  Technologies Mastered
-                </Typography>
-              </Grid>
-            </Grid>
-          </Box>
-        </Fade>
+        {/* Summary removed as requested */}
       </Container>
     </Box>
   );

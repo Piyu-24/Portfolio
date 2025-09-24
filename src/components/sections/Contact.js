@@ -64,24 +64,18 @@ const Contact = () => {
     {
       icon: <Email />,
       title: 'Email',
-      value: 'piyumi.upeksha@example.com',
+      value: 'upekshabbc@gmail.com',
       action: 'mailto:piyumi.upeksha@example.com',
       color: theme.palette.primary.main,
     },
     {
       icon: <Phone />,
       title: 'Phone',
-      value: '+94 XX XXX XXXX',
-      action: 'tel:+94XXXXXXXXX',
+      value: '+94 704520551',
+      action: 'tel:+94704520551',
       color: theme.palette.accent.main,
     },
-    {
-      icon: <LocationOn />,
-      title: 'Location',
-      value: 'Colombo, Sri Lanka',
-      action: null,
-      color: theme.palette.tertiary.main,
-    },
+
   ];
 
   const socialLinks = [
@@ -94,21 +88,10 @@ const Contact = () => {
     {
       icon: <LinkedIn />,
       label: 'LinkedIn',
-      url: 'https://linkedin.com/in/piyumi-upeksha',
+      url: 'https://linkedin.com/in/piyumi-pathinayake/',
       color: '#0077B5',
     },
-    {
-      icon: <WhatsApp />,
-      label: 'WhatsApp',
-      url: 'https://wa.me/94XXXXXXXXX',
-      color: '#25D366',
-    },
-    {
-      icon: <Instagram />,
-      label: 'Instagram',
-      url: 'https://instagram.com/piyumi_upeksha',
-      color: '#E4405F',
-    },
+
   ];
 
   const handleInputChange = (e) => {
@@ -127,7 +110,7 @@ const Contact = () => {
     // Show success message
     setSnackbar({
       open: true,
-      message: 'Thank you for your message! I\'ll get back to you soon.',
+      message: 'Thank you for your message!',
       severity: 'success',
     });
     
@@ -145,26 +128,31 @@ const Contact = () => {
   };
 
   const handleDownloadCV = () => {
-    // Direct download link from Google Drive
-    // Replace FILE_ID with your actual Google Drive file ID
-    const driveFileId = '1M2lVjet-nmuTKdlJyc3myEcIThBA_8d6'; // Your Google Drive file ID
-    const downloadUrl = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
-    
-    // Create download link
+    // New Google Drive file ID provided by user
+    const driveFileId = '14A9WxxQgtZKQ8jyLvIdLy5MfttH-gVrM';
+    const directDownloadUrl = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
+    const viewUrl = `https://drive.google.com/file/d/${driveFileId}/view`;
+
+    // Attempt direct download first
     const link = document.createElement('a');
-    link.href = downloadUrl;
+    link.href = directDownloadUrl;
     link.download = 'Piyumi_Upeksha_CV.pdf';
-    link.target = '_blank'; // Open in new tab as fallback
+    link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
-    // Show success message
+
+    // Provide snackbar with fallback action
     setSnackbar({
       open: true,
-      message: 'CV download started successfully!',
-      severity: 'success',
+      message: 'If download did not start, it will open in a new tab.',
+      severity: 'info',
     });
+
+    // Open view link after short delay as fallback (not blocking)
+    setTimeout(() => {
+      window.open(viewUrl, '_blank', 'noopener,noreferrer');
+    }, 800);
   };
 
   return (
@@ -223,18 +211,7 @@ const Contact = () => {
             >
               Let's Work Together
             </Typography>
-            <Typography
-              variant="h5"
-              sx={{
-                color: theme.palette.text.secondary,
-                maxWidth: '800px',
-                mx: 'auto',
-                lineHeight: 1.6,
-              }}
-            >
-              Ready to turn ideas into reality? I'd love to hear about your project 
-              and discuss how we can collaborate to build something amazing
-            </Typography>
+
           </Box>
         </Fade>
 
@@ -368,22 +345,24 @@ const Contact = () => {
                   variant="contained"
                   startIcon={<Download />}
                   onClick={handleDownloadCV}
+                  aria-label="Download CV"
                   sx={{
-                    py: 1.5,
+                    py: 1.2,
                     px: 3,
                     background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.accent.main} 100%)`,
                     color: '#FFFFFF',
                     fontWeight: 600,
                     borderRadius: '12px',
                     textTransform: 'none',
-                    fontSize: '1rem',
+                    fontSize: '0.95rem',
+                    letterSpacing: '0.5px',
                     '&:hover': {
                       transform: 'translateY(-2px)',
                       boxShadow: `0 8px 25px ${theme.palette.primary.main}40`,
                     },
                   }}
                 >
-                  Download My CV
+                  Download CV
                 </Button>
               </Box>
             </Slide>
@@ -519,7 +498,7 @@ const Contact = () => {
                 mb: 2,
               }}
             >
-              Thank you for visiting my portfolio! Looking forward to hearing from you.
+              Thank you for visiting my portfolio!
             </Typography>
             <Typography
               variant="body2"
@@ -529,7 +508,7 @@ const Contact = () => {
                 opacity: 0.7,
               }}
             >
-              © 2024 Piyumi Upeksha. Built with React & Material-UI.
+              © 2024 Piyumi Upeksha.
             </Typography>
           </Box>
         </Fade>

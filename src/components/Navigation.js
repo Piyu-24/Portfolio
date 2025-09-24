@@ -41,9 +41,8 @@ const Navigation = ({ darkMode, toggleDarkMode }) => {
     { label: 'Home', href: '#home', icon: <Home /> },
     { label: 'About', href: '#about', icon: <Person /> },
     { label: 'Skills', href: '#skills', icon: <Code /> },
-    { label: 'Portfolio', href: '#portfolio', icon: <Work /> },
-    { label: 'Experience', href: '#experience', icon: <Work /> },
-    { label: 'Achievements', href: '#achievements', icon: <EmojiEvents /> },
+  { label: 'Portfolio', href: '#portfolio', icon: <Work /> },
+  { label: 'Achievements', href: '#achievements', icon: <EmojiEvents /> },
     { label: 'Contact', href: '#contact', icon: <Mail /> },
   ];
 
