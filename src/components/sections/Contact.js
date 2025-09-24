@@ -128,8 +128,8 @@ const Contact = () => {
   };
 
   const handleDownloadCV = () => {
-    // New Google Drive file ID provided by user
-    const driveFileId = '14A9WxxQgtZKQ8jyLvIdLy5MfttH-gVrM';
+    // Updated Google Drive file ID provided by user
+    const driveFileId = '1qU_QbDLxH4niWoYtaZ9ArB2t-xq9uZL9';
     const directDownloadUrl = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
     const viewUrl = `https://drive.google.com/file/d/${driveFileId}/view`;
 

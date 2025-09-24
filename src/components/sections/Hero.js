@@ -48,8 +48,8 @@ const Hero = () => {
 
   const handleDownloadResume = () => {
     // Direct download link from Google Drive
-    // Replace FILE_ID with your actual Google Drive file ID
-    const driveFileId = '1M2lVjet-nmuTKdlJyc3myEcIThBA_8d6'; // Your Google Drive file ID
+    // Updated with new Google Drive file ID
+    const driveFileId = '1qU_QbDLxH4niWoYtaZ9ArB2t-xq9uZL9'; // Your updated Google Drive file ID
     const downloadUrl = `https://drive.google.com/uc?export=download&id=${driveFileId}`;
     
     // Create download link
