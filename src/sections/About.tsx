@@ -14,24 +14,24 @@ const About: React.FC = () => {
   const timeline = [
     {
       icon: GraduationCap,
-      title: 'Bachelor of Information Technology (Hons)',
-      organization: 'University of Moratuwa, Faculty of IT',
-      period: '2022 - Present',
-      description: 'Currently pursuing IT degree with focus on full-stack development',
+      title: 'Bachelor of Science (Hons) in Information Technology & Management',
+      organization: 'University of Moratuwa, Faculty of Information Technology',
+      period: '2023 - Present',
+      description: 'Currently an undergraduate specializing in full-stack development and software engineering fundamentals. Actively engaged in hands-on projects, research-based coursework, and team collaborations that strengthen my technical expertise and problem-solving abilities.',
     },
     {
       icon: GraduationCap,
-      title: 'G.C.E Advanced Level',
-      organization: 'Physical Science Stream',
-      period: '2020',
-      description: 'Strong foundation in analytical and problem-solving skills',
+      title: 'G.C.E. Advanced Level – Physical Science Stream',
+      organization: 'Subjects: Combined Mathematics, Physics, Chemistry',
+      period: '2021',
+      description: 'Developed a strong analytical mindset, quantitative reasoning skills, and a foundation in logical problem solving through rigorous coursework.',
     },
     {
       icon: GraduationCap,
-      title: 'G.C.E Ordinary Level',
+      title: 'G.C.E. Ordinary Level',
       organization: 'Completed',
-      period: '2017',
-      description: 'Comprehensive secondary education',
+      period: '2016',
+      description: 'Successfully completed secondary education with consistent academic performance, forming the base for my continued studies in technology and engineering.',
     },
   ];
 
