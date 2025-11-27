@@ -74,7 +74,7 @@ const Home: React.FC = () => {
               className="flex flex-col sm:flex-row gap-4 mb-8"
             >
               <a
-                href="https://drive.google.com/your-resume-link"
+                href="https://drive.google.com/file/d/1qU_QbDLxH4niWoYtaZ9ArB2t-xq9uZL9/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary flex items-center justify-center gap-2"
