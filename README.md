@@ -1,33 +1,91 @@
-# Professional Portfolio SPA
+# Piyumi Upeksha - Portfolio
 
-A sophisticated, responsive single-page application built with React and Material-UI, showcasing professional skills, experience, and projects.
+A modern, professional portfolio website built with React, TypeScript, and TailwindCSS.
 
-## 🌟 Features
+## 🎨 Design Features
 
-- **Modern Design**: Clean, professional interface with nude/neutral color palette and technology accents
-- **Dark/Light Mode**: Toggle between themes with automatic preference detection
-- **Fully Responsive**: Optimized for all device sizes from mobile to desktop
-- **Interactive Elements**: Smooth animations, particle background, and engaging user interactions
-- **Material-UI Components**: Consistent, accessible design system
-- **Component Architecture**: Well-organized, reusable React components
+- **Clean & Minimal**: Professional design with grayscale palette and dark blue accent color (#0066cc)
+- **Fully Responsive**: Mobile-first design optimized for all devices
+- **Smooth Animations**: Powered by Framer Motion for elegant transitions
+- **Modern UI**: TailwindCSS utility classes for consistent styling
+- **Type-Safe**: Built with TypeScript for robust code
 
-## 🎨 Design Specifications
+## 🚀 Tech Stack
 
-### Color Palette
-- **Primary Nude Tones**: #E6D2C7, #D3BBA8, #C2A58A
-- **Secondary Tech Accents**: #2D3142 (dark blue), #4F5D75 (slate)
-- **Optional Accent**: #00A8E8 (tech blue)
+- **React 19** - UI framework
+- **TypeScript** - Type safety
+- **TailwindCSS 3** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **Lucide React** - Beautiful icon set
 
-### Typography
-- **Headers**: Poppins (clean, modern sans-serif)
-- **Body Text**: Roboto (readable, professional)
+## 📁 Project Structure
 
-## 📱 Sections
+```
+src/
+├── components/          # Reusable components
+│   ├── Navbar.tsx
+│   ├── ProjectCard.tsx
+│   ├── AchievementBadge.tsx
+│   └── SocialLinks.tsx
+├── sections/            # Page sections
+│   ├── Home.tsx
+│   ├── About.tsx
+│   ├── Projects.tsx
+│   ├── Achievements.tsx
+│   └── Contact.tsx
+├── data/                # Data files
+│   ├── projects.ts
+│   └── achievements.ts
+├── App.tsx              # Main app component
+├── main.tsx             # Entry point
+└── index.css            # Global styles
+```
 
-1. **Hero/Home**: Professional headline with particle background and call-to-action
-2. **About**: Professional summary and educational background
-3. **Skills**: Technical proficiency with visual progress indicators
-4. **Portfolio**: Featured projects with detailed modals
+## 🛠️ Setup Instructions
+
+1. **Install dependencies**
+```bash
+npm install
+```
+
+2. **Add your images**
+   - Add your profile photo as `public/profile-photo.jpg`
+   - Add project images in `public/projects/` folder:
+     - `harvest.jpg`
+     - `healthcare.jpg`
+     - `gomate.jpg`
+     - `vehicle-rental.jpg`
+     - `novanex.jpg`
+
+3. **Update personal information**
+   - Update resume link in `src/sections/Home.tsx`
+   - Update GitHub username in social links
+   - Update LinkedIn URL in social links
+   - Customize project details in `src/data/projects.ts`
+   - Customize achievements in `src/data/achievements.ts`
+
+4. **Start development server**
+```bash
+npm start
+```
+
+5. **Build for production**
+```bash
+npm run build
+```
+
+## 📝 Customization Guide
+
+### Colors
+The accent color is set to dark blue (#0066cc). To change it, update the `accent` color palette in `tailwind.config.js`.
+
+### Sections
+All sections are modular and can be easily modified:
+- **Home**: Hero section with name, tagline, and CTA buttons
+- **About**: Profile summary, academic journey, qualities, and skills
+- **Projects**: Grid of project cards with hover effects
+- **Achievements**: Competition awards and recognition
+- **Contact**: Contact form and information
 5. **Experience**: Professional timeline and achievements
 6. **Achievements**: Awards, recognitions, and statistics
 7. **Contact**: Contact form and information
