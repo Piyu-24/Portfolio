@@ -70,7 +70,7 @@ const About: React.FC = () => {
         >
           <h2 className="section-title">About Me</h2>
           <p className="section-subtitle mx-auto">
-            A passionate IT undergraduate with a strong foundation in full-stack development
+            I am a motivated IT undergraduate with growing expertise in full-stack development, always driven by curiosity and a commitment to building meaningful digital experiences.
           </p>
         </motion.div>
 
@@ -83,15 +83,13 @@ const About: React.FC = () => {
         >
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Profile Summary</h3>
           <p className="text-gray-600 leading-relaxed mb-6">
-            I am a dedicated 3rd-year IT undergraduate at the University of Moratuwa, Faculty of IT, 
-            specializing in full-stack development. My journey in software engineering 
-            has been driven by a passion for creating innovative solutions and continuously expanding 
-            my technical expertise.
+            I'm a 3rd-year undergraduate at the University of Moratuwa, Faculty of IT, with strong foundations in both front-end and back-end engineering. My journey has been shaped by hands-on project work, hackathon experience, and continuous self-learning — allowing me to blend practical problem-solving with solid academic knowledge.
+          </p>
+          <p className="text-gray-600 leading-relaxed mb-6">
+            I enjoy turning real-world challenges into clean, scalable solutions. Whether it's designing user-friendly interfaces, developing efficient backend systems, or collaborating within a team, I aim to approach every task with adaptability, attention to detail, and a willingness to grow.
           </p>
           <p className="text-gray-600 leading-relaxed">
-            With hands-on experience in modern web technologies and a proven track record in 
-            hackathons and competitive programming, I bring both theoretical knowledge and practical 
-            skills to every project I undertake.
+            Currently, I'm focused on sharpening my full-stack skills and contributing to impactful projects as I prepare for a Software Engineering Internship.
           </p>
         </motion.div>
 
