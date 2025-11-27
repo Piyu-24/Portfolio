@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar';
+import HexagonBackground from './components/HexagonBackground';
 import Home from './sections/Home';
 import About from './sections/About';
 import Projects from './sections/Projects';
@@ -8,12 +9,15 @@ import Contact from './sections/Contact';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
+      {/* Hexagon Background Effect */}
+      <HexagonBackground />
+      
       {/* Navigation */}
       <Navbar />
 
       {/* Main Content */}
-      <main>
+      <main className="relative z-10">
         <Home />
         <About />
         <Projects />

@@ -17,9 +17,9 @@ export const projects: Project[] = [
     title: "HarvestSoftware – Farm-to-Market Trading Platform",
     description: "A comprehensive farm-to-market trading platform developed as a group project with 99x mentoring. Features include merchant dashboard, live bidding system, and responsive UI/UX.",
     technologies: ["React", "Node.js", "Express", "MongoDB", "Auth0"],
-    image: "/projects/harvest.jpg",
+    image: "/projects/harvest.png",
     github: "#",
-    liveDemo: "#",
+    //liveDemo: "#",
     featured: true,
     period: "Aug 2024 – June 2025",
     contributions: [
@@ -50,7 +50,7 @@ export const projects: Project[] = [
     title: "GoMate – Travel Companion App",
     description: "A React Native mobile application designed as a travel companion, featuring transport discovery, listings management, and booking functionality with state management using Redux Toolkit.",
     technologies: ["React Native", "TypeScript", "Redux Toolkit"],
-    image: "/projects/gomate.jpg",
+    image: "/projects/gomate.png",
     github: "#",
     featured: true,
     contributions: [
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     title: "Vehicle Rental Web Application",
     description: "A Laravel-based vehicle rental platform with comprehensive REST API, authentication system, route protection, and modern UI built with Tailwind CSS.",
     technologies: ["Laravel", "MySQL", "Tailwind CSS", "REST API"],
-    image: "/projects/vehicle-rental.jpg",
+    image: "/projects/vehicle-rental.png",
     github: "#",
     contributions: [
       "REST API development",
@@ -78,12 +78,11 @@ export const projects: Project[] = [
     title: "NovaNex – Automated Weighing & Packing System",
     description: "An embedded system project integrating hardware components for automated weighing and packing. Features system integration with Arduino, load cells, stepper motors, and GSM modules.",
     technologies: ["Arduino Mega", "Load Cell", "Stepper Motors", "GSM Module", "C++"],
-    image: "/projects/novanex.jpg",
+    image: "/projects/novanex.jpeg",
     github: "#",
     contributions: [
       "System integration",
       "Calibration implementation",
-      "UI development",
       "Relay control system"
     ]
   }

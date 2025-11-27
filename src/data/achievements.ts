@@ -5,6 +5,7 @@ export interface Achievement {
   position: string;
   year: number;
   description?: string;
+  image?: string;
 }
 
 export const achievements: Achievement[] = [
@@ -14,7 +15,8 @@ export const achievements: Achievement[] = [
     event: "SLIoT Challenge",
     position: "Finalists",
     year: 2025,
-    description: "Qualified as finalists in the Sri Lanka IoT Challenge 2025"
+    description: "Qualified as finalists in the Sri Lanka IoT Challenge 2025",
+    image: "/achievements/sliot.jpg"
   },
   {
     id: 2,
@@ -22,7 +24,8 @@ export const achievements: Achievement[] = [
     event: "HackElite Hackathon",
     position: "2nd Runner Up",
     year: 2024,
-    description: "Secured 2nd runner-up position in HackElite 1.0 hackathon"
+    description: "Secured 2nd runner-up position in HackElite 1.0 hackathon",
+    image: "/achievements/hackelite.jpg"
   },
   {
     id: 3,
@@ -30,7 +33,8 @@ export const achievements: Achievement[] = [
     event: "AlgoXplore Competition",
     position: "Top 15",
     year: 2024,
-    description: "Ranked among top 15 participants in AlgoXplore 1.0"
+    description: "Ranked among top 15 participants in AlgoXplore 1.0",
+    image: "/achievements/algoxplore.jpg"
   },
   {
     id: 4,
@@ -38,6 +42,7 @@ export const achievements: Achievement[] = [
     event: "Hackmoral Hackathon",
     position: "Rank 7",
     year: 2024,
-    description: "Achieved 7th position in Hackmoral 7.0 hackathon"
+    description: "Achieved 7th position in Hackmoral 7.0 hackathon",
+    image: "/achievements/hackmoral.jpg"
   }
 ];
