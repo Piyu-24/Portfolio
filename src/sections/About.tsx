@@ -24,14 +24,14 @@ const About: React.FC = () => {
       title: 'G.C.E. Advanced Level – Physical Science Stream',
       organization: 'Subjects: Combined Mathematics, Physics, Chemistry',
       period: '2021',
-      description: 'Developed a strong analytical mindset, quantitative reasoning skills, and a foundation in logical problem solving through rigorous coursework.',
+      //description: 'Developed a strong analytical mindset, quantitative reasoning skills, and a foundation in logical problem solving through rigorous coursework.',
     },
     {
       icon: GraduationCap,
       title: 'G.C.E. Ordinary Level',
       organization: 'Completed',
       period: '2016',
-      description: 'Successfully completed secondary education with consistent academic performance, forming the base for my continued studies in technology and engineering.',
+      //description: 'Successfully completed secondary education with consistent academic performance, forming the base for my continued studies in technology and engineering.',
     },
   ];
 
