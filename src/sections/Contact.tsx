@@ -171,7 +171,7 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-accent-500 focus:ring-2 focus:ring-accent-200 outline-none transition-all"
-                    placeholder="John Doe"
+                    placeholder="Janitha Chiran"
                   />
                 </div>
 
@@ -188,7 +188,7 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-accent-500 focus:ring-2 focus:ring-accent-200 outline-none transition-all"
-                    placeholder="john@example.com"
+                    placeholder="Janithasri@gmail.com"
                   />
                 </div>
 

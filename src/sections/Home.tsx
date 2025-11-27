@@ -53,7 +53,7 @@ const Home: React.FC = () => {
               transition={{ delay: 0.4 }}
               className="text-2xl sm:text-3xl font-semibold text-accent-600 mb-6"
             >
-              Software Engineer Intern Applicant
+              Aspiring Software Engineer
             </motion.h2>
 
             {/* Tagline */}
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
               transition={{ delay: 0.5 }}
               className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed"
             >
-              Aspiring Software Engineer | 3rd-year IT Undergraduate | Full-Stack Focused
+              3rd-year IT Undergraduate | Full-Stack Focused
             </motion.p>
 
             {/* Buttons */}

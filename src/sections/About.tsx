@@ -15,7 +15,7 @@ const About: React.FC = () => {
     {
       icon: GraduationCap,
       title: 'Bachelor of Information Technology (Hons)',
-      organization: 'Sri Lanka Institute of Information Technology',
+      organization: 'University of Moratuwa, Faculty of IT',
       period: '2022 - Present',
       description: 'Currently pursuing IT degree with focus on full-stack development',
     },
@@ -83,8 +83,8 @@ const About: React.FC = () => {
         >
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Profile Summary</h3>
           <p className="text-gray-600 leading-relaxed mb-6">
-            I am a dedicated 3rd-year IT undergraduate at the Sri Lanka Institute of Information 
-            Technology, specializing in full-stack development. My journey in software engineering 
+            I am a dedicated 3rd-year IT undergraduate at the University of Moratuwa, Faculty of IT, 
+            specializing in full-stack development. My journey in software engineering 
             has been driven by a passion for creating innovative solutions and continuously expanding 
             my technical expertise.
           </p>
