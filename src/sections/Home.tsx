@@ -53,7 +53,7 @@ const Home: React.FC = () => {
               transition={{ delay: 0.4 }}
               className="text-2xl sm:text-3xl font-semibold text-accent-600 mb-6"
             >
-              Software Engineer Intern Applicant
+              Aspiring Software Engineer
             </motion.h2>
 
             {/* Tagline */}
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
               transition={{ delay: 0.5 }}
               className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed"
             >
-              Aspiring Software Engineer | 3rd-year IT Undergraduate | Full-Stack Focused
+              3rd-year IT Undergraduate | Full-Stack Focused
             </motion.p>
 
             {/* Buttons */}
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
               className="flex flex-col sm:flex-row gap-4 mb-8"
             >
               <a
-                href="https://drive.google.com/your-resume-link"
+                href="https://drive.google.com/file/d/1qU_QbDLxH4niWoYtaZ9ArB2t-xq9uZL9/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary flex items-center justify-center gap-2"

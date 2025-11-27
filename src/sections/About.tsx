@@ -14,24 +14,24 @@ const About: React.FC = () => {
   const timeline = [
     {
       icon: GraduationCap,
-      title: 'Bachelor of Information Technology (Hons)',
-      organization: 'Sri Lanka Institute of Information Technology',
-      period: '2022 - Present',
-      description: 'Currently pursuing IT degree with focus on full-stack development',
+      title: 'Bachelor of Science (Hons) in Information Technology & Management',
+      organization: 'University of Moratuwa, Faculty of Information Technology',
+      period: '2023 - Present',
+      description: 'Currently an undergraduate specializing in full-stack development and software engineering fundamentals. Actively engaged in hands-on projects, research-based coursework, and team collaborations that strengthen my technical expertise and problem-solving abilities.',
     },
     {
       icon: GraduationCap,
-      title: 'G.C.E Advanced Level',
-      organization: 'Physical Science Stream',
-      period: '2020',
-      description: 'Strong foundation in analytical and problem-solving skills',
+      title: 'G.C.E. Advanced Level – Physical Science Stream',
+      organization: 'Subjects: Combined Mathematics, Physics, Chemistry',
+      period: '2021',
+      description: 'Developed a strong analytical mindset, quantitative reasoning skills, and a foundation in logical problem solving through rigorous coursework.',
     },
     {
       icon: GraduationCap,
-      title: 'G.C.E Ordinary Level',
+      title: 'G.C.E. Ordinary Level',
       organization: 'Completed',
-      period: '2017',
-      description: 'Comprehensive secondary education',
+      period: '2016',
+      description: 'Successfully completed secondary education with consistent academic performance, forming the base for my continued studies in technology and engineering.',
     },
   ];
 
@@ -70,7 +70,7 @@ const About: React.FC = () => {
         >
           <h2 className="section-title">About Me</h2>
           <p className="section-subtitle mx-auto">
-            A passionate IT undergraduate with a strong foundation in full-stack development
+            I am a motivated IT undergraduate with growing expertise in full-stack development, always driven by curiosity and a commitment to building meaningful digital experiences.
           </p>
         </motion.div>
 
@@ -83,15 +83,13 @@ const About: React.FC = () => {
         >
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Profile Summary</h3>
           <p className="text-gray-600 leading-relaxed mb-6">
-            I am a dedicated 3rd-year IT undergraduate at the Sri Lanka Institute of Information 
-            Technology, specializing in full-stack development. My journey in software engineering 
-            has been driven by a passion for creating innovative solutions and continuously expanding 
-            my technical expertise.
+            I'm a 3rd-year undergraduate at the University of Moratuwa, Faculty of IT, with strong foundations in both front-end and back-end engineering. My journey has been shaped by hands-on project work, hackathon experience, and continuous self-learning — allowing me to blend practical problem-solving with solid academic knowledge.
+          </p>
+          <p className="text-gray-600 leading-relaxed mb-6">
+            I enjoy turning real-world challenges into clean, scalable solutions. Whether it's designing user-friendly interfaces, developing efficient backend systems, or collaborating within a team, I aim to approach every task with adaptability, attention to detail, and a willingness to grow.
           </p>
           <p className="text-gray-600 leading-relaxed">
-            With hands-on experience in modern web technologies and a proven track record in 
-            hackathons and competitive programming, I bring both theoretical knowledge and practical 
-            skills to every project I undertake.
+            Currently, I'm focused on sharpening my full-stack skills and contributing to impactful projects as I prepare for a Software Engineering Internship.
           </p>
         </motion.div>
 
